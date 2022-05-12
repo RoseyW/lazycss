@@ -118,3 +118,47 @@ let style = useStyle({
 ```
 
 autoFlex接收一个字符串，字符串中可以存储两个/一个值，该值描述了一个flex布局的方式，该方式的描述方式与css相同
+
+
+
+### Future
+
+#### 兼容浏览器
+
+使用一行代码就可以做到多浏览器样式兼容
+
+```javascript
+let style = useStyle({
+    demo: {
+        userSelect: none;
+    }
+})
+```
+
+Will output
+
+```css
+.demo {
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+```
+
+#### 伪元素支持
+
+使用更加简便方式来为dom添加伪元素
+
+```javascript
+let style = useStyle({
+    demo: {
+        hover:{
+            backgroundColor: '#1e9fff'
+        }
+    }
+})
+```
+
+
+
