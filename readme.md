@@ -103,3 +103,18 @@ let style = useStyle({
 
 
 
+### 特别的样式
+
+#### autoFlex
+
+自动化flex构建
+
+```javascript
+let style = useStyle({
+    demo: {
+        autoFlex: "center flex-start"
+    }
+})
+```
+
+autoFlex接收一个字符串，字符串中可以存储两个/一个值，该值描述了一个flex布局的方式，该方式的描述方式与css相同
