@@ -1,4 +1,4 @@
-# LazyCss
+LazyCss
 
 ### 简述
 
@@ -155,9 +155,50 @@ let style = useStyle({
     demo: {
         hover:{
             backgroundColor: '#1e9fff'
+        },
+        //maybe use
+        //支持两种模式，单下划线为:(css2)，双下划线为::(css3+)
+        _hover:{
+        	backgroundColor: '#1e9fff'
+    	},
+    	_active:{},
+        _focus:{},
+        _before:{},
+        _after:{},
+        __hover:{}
+        __before:{}
+    }
+})
+```
+
+#### 样式继承
+
+从父元素上继承样式
+
+```javascript
+let style = useStyle({
+    demo: {
+        children:{
+            test:{
+                width: 30
+            }
         }
     }
 })
+```
+
+另一种添加方式
+
+```javascript
+let style = useStyle({
+    demo: {
+        width: 30
+    }
+})
+let testStyle = {
+    width:30
+}
+style.addChild(demo, testStyle);
 ```
 
 
