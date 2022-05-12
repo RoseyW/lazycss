@@ -25,12 +25,35 @@ export interface cssMethod {
 // }
 //返回一个map
 export const cssMethod = {
-    width: (value: any) => {return { width: value + "px" }},
-    height: (value: any) => {return { height: value + "px" }},
+    width: (value: any) => {return { width: typeof value === "number" ? value + "px" : value }},
+    height: (value: any) => {return { height: typeof value === "number" ? value + "px" : value }},
     color: (value: any) => {return { color: value }},
+    autoFlex: (value: any) => { return autoFlexMethods(value) }
 
 };
 
+const autoFlexMethods = function (value: any){
+    let result = {};
+    let split = value.split(" ");
+    if(split.length === 2){
+        //存在两个
+        result = {
+            display: "flex",
+            justifyContent: split[0],
+            alignItems: split[1],
+            alignContent: split[1],
+        }
+    } else {
+        result = {
+            display: "flex",
+            justifyContent: value,
+            alignItems: value,
+            alignContent: value,
+        }
+    }
 
+    return result;
+
+}
 
 export default cssList;

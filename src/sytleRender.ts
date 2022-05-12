@@ -26,7 +26,7 @@ const getCssStr = function (styleName: string, styleValue: any, cssMethods?: css
         let valueKey = Object.keys(value);
         let resultStr = "";
         for (let i = 0; i < valueKey.length; i++) {
-            resultStr += valueKey[i] + ":" + value[valueKey[i]] + ";";
+            resultStr += humpToLine(valueKey[i]) + ":" + value[valueKey[i]] + ";";
         }
         return resultStr;
     } else {
