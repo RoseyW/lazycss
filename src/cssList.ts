@@ -25,8 +25,10 @@ export interface cssMethod {
 // }
 //返回一个map
 export const cssMethod = {
-    width: (value: any) => {return {width: value + "px"}},
-    height: (value: any) => {return {height: value + "px"}},
+    width: (value: any) => {return { width: value + "px" }},
+    height: (value: any) => {return { height: value + "px" }},
+    color: (value: any) => {return { color: value }},
+
 };
 
 
