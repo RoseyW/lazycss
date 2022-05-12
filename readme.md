@@ -77,3 +77,29 @@ let style = useStyle({
 
 LazyCss会在useStyle时会根据传入的样式表生成对应的css样式表
 
+
+
+### 更多功能
+
+#### rgb2hex
+
+将rgb色彩值转为16进制色彩值
+
+```javascript
+let demo = rgb(124,124,124); //#7c7c7c
+```
+
+在 useStyle 中使用
+
+```javascript
+let style = useStyle({
+    demo: {
+        color: rgb(124,124,124),
+        //semblable
+        color: '#7c7c7c',
+    }
+})
+```
+
+
+
