@@ -38,8 +38,8 @@ style.cssName.cssListParam = cssValue;
 Node.js:
 
 ```javascript
-import lazyCss from "lazycss-base"
-let style = lazyCss.useStyle({
+import { useStyle } from "lazycss-base"
+let style = useStyle({
     cssName: {
         cssList
     }
@@ -64,7 +64,8 @@ style.cssName.cssListParam = cssValue;
 ```
 
 ```javascript
-let style = lazyuseStyle({
+import { useStyle } from "lazycss-base"
+let style = useStyle({
 	demo: {
 	width: 30
 	}
@@ -86,12 +87,14 @@ LazyCss会在useStyle时会根据传入的样式表生成对应的css样式表
 将rgb色彩值转为16进制色彩值
 
 ```javascript
+import { rgb } from "lazycss-base"
 let demo = rgb(124,124,124); //#7c7c7c
 ```
 
 在 useStyle 中使用
 
 ```javascript
+import { useStyle,rgb } from "lazycss-base"
 let style = useStyle({
     demo: {
         color: rgb(124,124,124),
@@ -206,6 +209,7 @@ style.addChild(demo, testStyle);
 使用方法来预设一组样式，这一组样式将会传入到useStyle中，当使用该样式组时，useStyle将会调用预设样式来生成。
 
 ```javascript
+import { useStyle,setPreStyle } from ""
 let presetStyle = setPreStyle({
     //useStyle在调用presetStyle时，会传入一个value参数，用户可根据value参数来返回对应的css样式表
     preDemo: (value: any) => { return { width: value } }
@@ -232,7 +236,7 @@ export default const styleLib = styleLib({
 ```
 
 ```javascript
-import styleLib from "./styleLib"
+import { useStyle,styleLib } from "lazycss-base"
 //use lib
 useStyleLib(styleLib);
 //use single component

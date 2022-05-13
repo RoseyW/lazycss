@@ -10,10 +10,30 @@ declare interface cssList {
     backgroundUrl?: string;
 }
 
-declare const _default: {
-    useStyle: ({ ...args }: cssList) => any;
-    rgb: (r: number, g: number, b: number) => string;
+declare interface cssMethod {
+    cssName: string;
+    result: string | number | Function | boolean;
+}
+
+declare const cssMethod: {
+    width: (value: any) => {
+        width: any;
+    };
+    height: (value: any) => {
+        height: any;
+    };
+    color: (value: any) => {
+        color: any;
+    };
+    autoFlex: (value: any) => {};
 };
-export default _default;
+
+declare interface cssMethods {
+    method: Array<cssMethod>;
+}
+
+export declare const rgb: (r: number, g: number, b: number) => string;
+
+export declare const useStyle: ({ ...args }: cssList, selfMethod?: cssMethods | undefined) => any;
 
 export { }
