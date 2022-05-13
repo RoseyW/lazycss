@@ -118,10 +118,6 @@ let style = useStyle({
 
 autoFlex accepts a string that can store two/one values that describe a Flex layout, this describe same css describe.
 
-
-
-### Future
-
 #### Compatibility explorer
 
 Multi-browser style compatibility can be achieved with a single line of code
@@ -144,6 +140,10 @@ Will output
    user-select: none;
 }
 ```
+
+**Currently supported solutions: Automatic assembly of styles - webkit -, -moz -, -o- tags based on the List table**
+
+### Future
 
 #### Support pseudo elements
 
