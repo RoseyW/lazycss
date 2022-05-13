@@ -34,6 +34,17 @@ declare interface cssMethods {
 
 export declare const rgb: (r: number, g: number, b: number) => string;
 
+export declare const setPresetStyle: ({ ...args }: cssList) => string;
+
+export declare const setStyleLib: ({ ...args }: cssList) => styleLib;
+
+declare interface styleLib {
+}
+
+export declare const useLib: () => void;
+
+export declare const useMedia: (mediaType: string, mediaFeature: string, featureValue: string | number, styleList: cssList) => void;
+
 export declare const useStyle: ({ ...args }: cssList, selfMethod?: cssMethods | undefined) => any;
 
 export { }

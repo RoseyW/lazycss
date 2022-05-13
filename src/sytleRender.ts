@@ -1,4 +1,5 @@
 import {cssMethod, cssMethods} from "./cssList";
+import autoCompatible from "./autoCompatible";
 
 const render = function(DomName: string,StyleMap: any, cssMethods?: cssMethods){
     const dom = getDom(DomName);
@@ -26,15 +27,30 @@ const getCssStr = function (styleName: string, styleValue: any, cssMethods?: css
         let valueKey = Object.keys(value);
         let resultStr = "";
         for (let i = 0; i < valueKey.length; i++) {
-            resultStr += humpToLine(valueKey[i]) + ":" + value[valueKey[i]] + ";";
+            //找到后进行查找自动装载
+            let autoValue = autoCompatible(valueKey[i]); //返回需要适配的表
+            let lowerName = humpToLine(valueKey[i]);
+            resultStr += lowerName + ":" + value[valueKey[i]] + ";";
+            if(autoValue){
+                resultStr += "-webkit-" + lowerName + ":" + value[valueKey[i]] + ";";
+                resultStr += "-moz-" + lowerName + ":" + value[valueKey[i]] + ";";
+                resultStr += "-o-" + lowerName + ":" + value[valueKey[i]] + ";";
+            }
         }
         return resultStr;
     } else {
-        let element = humpToLine(styleName);
         if(typeof styleValue === "number"){
             styleValue = styleValue + "px";
         }
-        return element + ":" + styleValue + ";";
+        let autoValue = autoCompatible(styleName);
+        let lowerName = humpToLine(styleName);
+        let result = lowerName + ":" + styleValue + ";";
+        if(autoValue){
+            result += "-webkit-" + lowerName + ":" + styleValue + ";";
+            result += "-moz-" + lowerName + ":" + styleValue + ";";
+            result += "-o-" + lowerName + ":" + styleValue + ";";
+        }
+        return result;
     }
 }
 

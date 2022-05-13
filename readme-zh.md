@@ -122,11 +122,7 @@ let style = useStyle({
 
 autoFlex接收一个字符串，字符串中可以存储两个/一个值，该值描述了一个flex布局的方式，该方式的描述方式与css相同
 
-
-
-### Future
-
-#### 兼容浏览器
+### 兼容浏览器
 
 使用一行代码就可以做到多浏览器样式兼容
 
@@ -148,6 +144,10 @@ Will output
    user-select: none;
 }
 ```
+
+**目前支持方案：基于List表，为样式进行自动化组装-webkit-、-moz-、-o-标签**
+
+### Future
 
 #### 伪元素支持
 

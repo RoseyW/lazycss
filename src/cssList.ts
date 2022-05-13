@@ -28,8 +28,9 @@ export const cssMethod = {
     width: (value: any) => {return { width: typeof value === "number" ? value + "px" : value }},
     height: (value: any) => {return { height: typeof value === "number" ? value + "px" : value }},
     color: (value: any) => {return { color: value }},
-    autoFlex: (value: any) => { return autoFlexMethods(value) }
-
+    autoFlex: (value: any) => { return autoFlexMethods(value) },
+    animation: (value: any) => {return { animation: value }},
+    animationDelay: (value: any) => {return { animationDelay: value }},
 };
 
 const autoFlexMethods = function (value: any){
