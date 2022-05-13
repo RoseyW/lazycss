@@ -1,7 +1,5 @@
 # LazyCss
 
-[![star](https://gitee.com/roseyw/lazycss/badge/star.svg?theme=dark)](https://gitee.com/roseyw/lazycss/stargazers)[![fork](https://gitee.com/roseyw/lazycss/badge/fork.svg?theme=dark)](https://gitee.com/roseyw/lazycss/members)
-
 ### 简述
 
 让你使用更简便的方式来编辑样式表
@@ -176,7 +174,9 @@ let style = useStyle({
 })
 ```
 
-#### 样式继承
+#### 子样式
+
+
 
 从父元素上继承样式
 
@@ -201,12 +201,16 @@ let style = useStyle({
     }
 })
 let testStyle = {
-    width:30
+    demo_child:{
+        position: 'relative'
+    }
 }
 style.addChild(demo, testStyle);
 ```
 
 #### 预设的样式组
+
+**stylePreset.ts**
 
 使用方法来预设一组样式，这一组样式将会传入到useStyle中，当使用该样式组时，useStyle将会调用预设样式来生成。
 
@@ -227,10 +231,12 @@ let style = useStyle({
 
 #### 组件库的可用性
 
-使用useStyleLib可以从预先定义的styleLib中获取全部/部分样式以加载到当前页面进行使用
+**styleLib.ts**
+
+使用useLib可以从预先定义的styleLib中获取全部/部分样式以加载到当前页面进行使用
 
 ```javascript
-export default const styleLib = styleLib({
+export default const styleLib = setStyleLib({
     Button: {
         width: 30,
     }
@@ -238,13 +244,37 @@ export default const styleLib = styleLib({
 ```
 
 ```javascript
-import { useStyle,styleLib } from "lazycss-base"
+import { useStyle,useStyleLib } from "lazycss-base"
+import demoLib from "./demoLib"
 //use lib
-useStyleLib(styleLib);
+useLib(demoLib);
 //use single component
-useStyleLib(styleLib.Button);
+useLib(demoLib.Button);
 let style = useStyle({
     //other style list
 });
+```
+
+#### 响应式设计
+
+**styleMedia.ts**
+
+在useStyle使用useMedia来实现对该元素的响应式设计
+
+```javascript
+import { useStyle, styleMedia } from "lazycss-base"
+let style = useStyle({
+    demo: {
+        width: 20
+    }
+})
+
+let media_screen_width_max_768 = styleMedia("screen", "max-width", 768, {
+    demo: {
+        width: 30
+    }
+})
+
+style.setMedia(media_screen_width_max_768);
 ```
 

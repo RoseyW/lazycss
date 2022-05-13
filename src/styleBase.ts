@@ -1,6 +1,15 @@
 import cssList from "./cssList";
 import render from "./sytleRender";
 import {cssMethods} from "./cssList";
+import {styleMedia} from "./styleMedia";
+
+const init = function (){
+    let styles = document.createElement("styles");
+    let selfStyle = document.createElement("style");
+    selfStyle.innerHTML = "styles{display:none}";
+    styles.appendChild(selfStyle);
+    document.body.appendChild(styles);
+}
 
 const useStyle = function ({...args}: cssList, selfMethod?: cssMethods){
     //初始化
@@ -32,12 +41,12 @@ const useStyle = function ({...args}: cssList, selfMethod?: cssMethods){
     });
 }
 
-const init = function (){
-    let styles = document.createElement("styles");
-    let selfStyle = document.createElement("style");
-    selfStyle.innerHTML = "styles{display:none}";
-    styles.appendChild(selfStyle);
-    document.body.appendChild(styles);
+useStyle.prototype.setMedia = function (media: styleMedia){
+    return "abc";
+}
+
+useStyle.prototype.addChild = function (child: any){
+    return "addChild";
 }
 
 export default useStyle;
