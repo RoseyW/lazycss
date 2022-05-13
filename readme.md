@@ -38,8 +38,8 @@ style.cssName.cssListParam = cssValue;
 Node.js:
 
 ```javascript
-import useStyle from "lazycss-base/build/types/lazyCss";
-let style = useStyle({
+import lazyCss from "lazycss-base"
+let style = lazyCss.useStyle({
     cssName: {
         cssList
     }
@@ -64,7 +64,7 @@ style.cssName.cssListParam = cssValue;
 ```
 
 ```javascript
-let style = useStyle({
+let style = lazyuseStyle({
 	demo: {
 	width: 30
 	}
@@ -201,5 +201,44 @@ let testStyle = {
 style.addChild(demo, testStyle);
 ```
 
+#### 预设的样式组
 
+使用方法来预设一组样式，这一组样式将会传入到useStyle中，当使用该样式组时，useStyle将会调用预设样式来生成。
+
+```javascript
+let presetStyle = setPreStyle({
+    //useStyle在调用presetStyle时，会传入一个value参数，用户可根据value参数来返回对应的css样式表
+    preDemo: (value: any) => { return { width: value } }
+    //返回的样式表需要为 K:V 集合，并使用驼峰命名，useStyle会自动将驼峰转为横杠
+})
+
+let style = useStyle({
+    demo: {
+        preDemo: "传参示例",
+    }
+}, presetStyle)
+```
+
+#### 组件库的可用性
+
+使用useStyleLib可以从预先定义的styleLib中获取全部/部分样式以加载到当前页面进行使用
+
+```javascript
+export default const styleLib = styleLib({
+    Button: {
+        width: 30,
+    }
+})
+```
+
+```javascript
+import styleLib from "./styleLib"
+//use lib
+useStyleLib(styleLib);
+//use single component
+useStyleLib(styleLib.Button);
+let style = useStyle({
+    //other style list
+});
+```
 

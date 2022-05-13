@@ -1,23 +1,26 @@
 {
   "name": "lazycss-base",
-  "version": "0.1.2",
+  "version": "0.1.7",
   "description": "a javascript control css tool",
   "private": false,
   "main": "build/lazyCss.cjs.js",
   "module": "build/lazyCss.es.js",
-  "types": "build/lazyCss/types/index.d.ts",
+  "types": "lazycss-base.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/index.ts",
     "dev": "rollup -w -c rollup.config.ts --environment MODE:dev",
-    "build": "rollup -c rollup.config.ts --environment MODE:prod"
+    "build": "rollup -c rollup.config.ts --environment MODE:prod",
+    "dts": "api-extractor run --local --verbose",
+    "release": "npm publish"
   },
   "repository": {
     "type": "git",
     "url": "https://gitee.com/roseyw/lazycss.git"
   },
   "files": [
-    "build"
+    "build",
+    "lazycss-base.d.ts"
   ],
   "keywords": [
     "css"
@@ -25,9 +28,13 @@
   "author": "RoseyWrong",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
     "rollup": "^2.72.1",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-typescript2": "^0.31.2",
     "tslib": "^2.4.0",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "@microsoft/api-extractor": "^7.23.2"
   }
 }
