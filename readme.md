@@ -1,4 +1,6 @@
-LazyCss
+# LazyCss
+
+[![star](https://gitee.com/roseyw/lazycss/badge/star.svg?theme=dark)](https://gitee.com/roseyw/lazycss/stargazers)[![fork](https://gitee.com/roseyw/lazycss/badge/fork.svg?theme=dark)](https://gitee.com/roseyw/lazycss/members)
 
 ### 简述
 
@@ -209,7 +211,7 @@ style.addChild(demo, testStyle);
 使用方法来预设一组样式，这一组样式将会传入到useStyle中，当使用该样式组时，useStyle将会调用预设样式来生成。
 
 ```javascript
-import { useStyle,setPreStyle } from ""
+import { useStyle,setPreStyle } from "lazycss-base"
 let presetStyle = setPreStyle({
     //useStyle在调用presetStyle时，会传入一个value参数，用户可根据value参数来返回对应的css样式表
     preDemo: (value: any) => { return { width: value } }
