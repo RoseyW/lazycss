@@ -18,6 +18,8 @@ Node.js使用
 npm i lazycss-base
 ```
 
+latest version: 0.1.11
+
 ### 使用方法
 
 普通页面：

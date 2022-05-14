@@ -1,6 +1,6 @@
 {
   "name": "lazycss-base",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "a javascript control css tool",
   "private": false,
   "main": "build/lazyCss.cjs.js",

@@ -18,6 +18,8 @@ on Node.js:
 npm i lazycss-base
 ```
 
+latest version: 0.1.11
+
 ### Use methods
 
 ordinary page：
