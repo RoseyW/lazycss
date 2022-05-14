@@ -12,13 +12,15 @@ on ordinary html：
 <script src="http://cdn.basedigit.net/lazycss-base/lazyCss.global.js" />
 ```
 
+latest version: 0.1.11
+
 on Node.js:
 
 ```npm i lazycss-base
 npm i lazycss-base
 ```
 
-latest version: 0.1.11
+latest version: 0.1.12
 
 ### Use methods
 
@@ -175,9 +177,7 @@ let style = useStyle({
 
 **'part style' functionality has not yet been implemented.**
 
-### Future
-
-#### Support pseudo elements
+### Support pseudo elements
 
 Use an easier way to add pseudo-elements to the DOM
 
@@ -197,6 +197,10 @@ let style = useStyle({
     }
 })
 ```
+
+is supported in **0.1.12**, but is **not** normalized input, so if you use this function, you should becareful.
+
+### Future
 
 #### Child elements
 

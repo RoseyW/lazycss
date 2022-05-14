@@ -8,14 +8,42 @@ const render = function(DomName: string,StyleMap: any){
     }
     const styleKey = Object.keys(StyleMap);
     let styleList = "." + DomName + "{";
+    let allPseudoList = "";
     for(let i=0; i < styleKey.length; i++){
         if(StyleMap[styleKey[i]] === "fatherNode"){
-            break;
+            continue;
+        }
+        if(styleKey[i].toString().indexOf("__") === 0 || styleKey[i].toString().indexOf("_") === 0){
+            //进入伪元素渲染队列
+            allPseudoList += pseudoRender(DomName, styleKey[i].toString(), StyleMap[styleKey[i]]);
+            continue;
         }
         styleList += getCssStr(styleKey[i], StyleMap[styleKey[i]]);
     }
     styleList += "}";
     dom.innerHTML = styleList;
+    dom.innerHTML += allPseudoList;
+}
+
+const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: any){
+    let pseudoSymbol = "";
+    let pseudoName = "";
+    if(pseudoType.indexOf("__") === 0){
+        //双点
+        pseudoSymbol = "::";
+        pseudoName = pseudoType.split("__")[1];
+    } else {
+        pseudoSymbol = ":";
+        pseudoName = pseudoType.split("_")[1];
+    }
+
+    const styleKey = Object.keys(pseudoMap);
+    let pseudoList = "." + DomName + pseudoSymbol + pseudoName + "{";
+    for(let i=0; i < styleKey.length; i++){
+        pseudoList += getCssStr(styleKey[i], pseudoMap[styleKey[i]]);
+    }
+    pseudoList += "}";
+    return pseudoList;
 }
 
 //到cssMethod里找，如果没有，则执行默认的值

@@ -9,23 +9,27 @@
 <div class="test">
     hallo
 </div>
-<div class="antButton">
-
-</div>
+<button class="canoeButton"> hallo </button>
 </body>
 <script src="test.js"></script>
 <script>
-    lazyCss.useLib(ant);
+    lazyCss.useLib(canoeDesign);
 
     let style = lazyCss.useStyle({
         test: {
             width: '100%',
             marginTop: 20,
             autoFlex: "center flex-start",
-            animationDelay: "2s"
-        }
+            animationDelay: "2s",
+            __hover:{
+                backgroundColor: "#244444"
+            }
+        },
     })
 
+    let a = "__hover";
+    let b = a.indexOf("__");
+    console.log(b);
 
     console.log(style);
 

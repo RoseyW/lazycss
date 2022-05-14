@@ -19,7 +19,6 @@ const setBaseProxy = function(){
             return true;
         }
     });
-
     return true;
 }
 

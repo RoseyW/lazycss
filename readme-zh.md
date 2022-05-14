@@ -12,13 +12,15 @@
 <script src="http://cdn.basedigit.net/lazycss-base/lazyCss.global.js" />
 ```
 
+latest version: 0.1.11
+
 Node.js使用
 
 ```npm i lazycss-base
 npm i lazycss-base
 ```
 
-latest version: 0.1.11
+latest version: 0.1.12
 
 ### 使用方法
 
@@ -179,9 +181,7 @@ let style = useStyle({
 
 **部分样式功能尚未被实现。**
 
-### Future
-
-#### 伪元素支持
+### 伪元素支持
 
 使用更加简便方式来为dom添加伪元素
 
@@ -205,6 +205,10 @@ let style = useStyle({
     }
 })
 ```
+
+在**0.1.12**版本中**已被支持**，但并没有被**规范化输入**
+
+### Future
 
 #### 子样式
 
