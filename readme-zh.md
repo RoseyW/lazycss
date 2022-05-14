@@ -175,7 +175,9 @@ let style = useStyle({
 });
 ```
 
-现在，namespace量尚未被使用。
+**现在，namespace量尚未被使用。**
+
+**部分样式功能尚未被实现。**
 
 ### Future
 

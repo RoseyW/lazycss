@@ -171,7 +171,9 @@ let style = useStyle({
 });
 ```
 
-namespace not be used now.
+**namespace not be used now.**
+
+**'part style' functionality has not yet been implemented.**
 
 ### Future
 
