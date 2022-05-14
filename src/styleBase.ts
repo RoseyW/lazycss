@@ -1,52 +1,69 @@
 import cssList from "./cssList";
 import render from "./sytleRender";
-import {cssMethods} from "./cssList";
-import {styleMedia} from "./styleMedia";
 
-const init = function (){
-    let styles = document.createElement("styles");
-    let selfStyle = document.createElement("style");
-    selfStyle.innerHTML = "styles{display:none}";
-    styles.appendChild(selfStyle);
-    document.body.appendChild(styles);
+declare global {
+    interface Window {
+        cssLazy: any
+    }
 }
 
-const useStyle = function ({...args}: cssList, selfMethod?: cssMethods){
-    //初始化
-    init();
-    let mapArgs = Object.entries(args);
-    let styleObjProxy:any = {};
-    for (let i =0; i < mapArgs.length; i++) {
-        render(mapArgs[i][0], mapArgs[i][1]);
-        let proxyArgs = {...mapArgs[i][1]};
-        proxyArgs['fatherNode'] = mapArgs[i][0];
-        styleObjProxy[mapArgs[i][0]] = new Proxy(proxyArgs, {
-            set: function (target, property, value, receiver) {
-                if(property === "fatherNode"){
-                    console.error("can't set father node");
-                    return;
-                }
-                target[property] = value;
-                render(target['fatherNode'],target, selfMethod);
-                return Reflect.get(target, property, receiver);
-            }
-        });
-    }
-
-    //防止响应式篡改
-    return new Proxy(styleObjProxy, {
+//基础proxy定义
+const setBaseProxy = function(){
+    window.cssLazy = new Proxy({}, {
         set: function (target, property, value, receiver) {
-            return Reflect.get(target, property, receiver);
+            if(value === "" || value === undefined || value === null){
+                return false;
+            }
+            target[property] = value;
+            render(typeof property === "string" ? property : property.toString(), value);
+            return true;
+        }
+    });
+
+    return true;
+}
+
+//创建元素代理
+const createElementProxy = function (fatherNode: string,cssList: cssList){
+    cssList.fatherNode = fatherNode;
+    return new Proxy(cssList, {
+        set: function (target, property, value, receiver) {
+            if (property === "fatherNode") {
+                return false;
+            }
+            target[property] = value;
+            render(target['fatherNode'], target);
+            return true;
         }
     });
 }
 
-useStyle.prototype.setMedia = function (media: styleMedia){
-    return "abc";
+//初始化
+const init = function (){
+    if(document.getElementsByTagName("styles").length === 0){
+        setBaseProxy();
+        let styles = document.createElement("styles");
+        let selfStyle = document.createElement("style");
+        selfStyle.innerHTML = "styles{display:none}";
+        styles.appendChild(selfStyle);
+        document.body.appendChild(styles);
+    }
 }
 
-useStyle.prototype.addChild = function (child: any){
-    return "addChild";
+//主函数
+const useStyle = function ({...args}: cssList){
+    //初始化
+    init();
+    let mapArgs = Object.entries(args);
+    for (let i =0; i < mapArgs.length; i++) {
+        render(mapArgs[i][0], mapArgs[i][1]);
+        window.cssLazy[mapArgs[i][0]] = createElementProxy(mapArgs[i][0],mapArgs[i][1]);
+    }
+    return window.cssLazy;
 }
 
-export default useStyle;
+export {
+    useStyle,
+    init,
+    createElementProxy
+};

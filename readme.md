@@ -118,7 +118,7 @@ let style = useStyle({
 
 autoFlex accepts a string that can store two/one values that describe a Flex layout, this describe same css describe.
 
-#### Compatibility explorer
+### Compatibility explorer
 
 Multi-browser style compatibility can be achieved with a single line of code
 
@@ -142,6 +142,34 @@ Will output
 ```
 
 **Currently supported solutions: Automatic assembly of styles - webkit -, -moz -, -o- tags based on the List table**
+
+### Availability of component libraries
+
+**styleLib.ts**
+
+With useLib, you can get all/part of the style from the pre-defined styleLib to load into the current page for use.
+
+```javascript
+export default const styleLib = setStyleLib({
+    Button: {
+        width: 30,
+    }
+})
+```
+
+```javascript
+import { useStyle,useStyleLib } from "lazycss-base"
+import demoLib from "./demoLib"
+//use lib
+useLib(demoLib);
+//use single component
+useLib(demoLib.Button);
+let style = useStyle({
+    //other style list
+});
+```
+
+namespace not be used now.
 
 ### Future
 
@@ -217,32 +245,6 @@ let style = useStyle({
         preDemo: "传参示例",
     }
 }, presetStyle)
-```
-
-#### Availability of component libraries
-
-**styleLib.ts**
-
-With useLib, you can get all/part of the style from the pre-defined styleLib to load into the current page for use.
-
-```javascript
-export default const styleLib = setStyleLib({
-    Button: {
-        width: 30,
-    }
-})
-```
-
-```javascript
-import { useStyle,useStyleLib } from "lazycss-base"
-import demoLib from "./demoLib"
-//use lib
-useLib(demoLib);
-//use single component
-useLib(demoLib.Button);
-let style = useStyle({
-    //other style list
-});
 ```
 
 #### Screen responsive design

@@ -1,4 +1,5 @@
 interface cssList {
+    fatherNode : string,
     width ?: number,
     height ?: number,
     marginTop ?: number,
@@ -52,9 +53,7 @@ const autoFlexMethods = function (value: any){
             alignContent: value,
         }
     }
-
     return result;
-
 }
 
 export default cssList;

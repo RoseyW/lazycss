@@ -147,6 +147,34 @@ Will output
 
 **目前支持方案：基于List表，为样式进行自动化组装-webkit-、-moz-、-o-标签**
 
+### 组件库的可用性
+
+**styleLib.ts**
+
+使用useLib可以从预先定义的styleLib中获取全部/部分样式以加载到当前页面进行使用
+
+```javascript
+export default const styleLib = setStyleLib("namespace",{
+    Button: {
+        width: 30,
+    }
+})
+```
+
+```javascript
+import { useStyle,useLib } from "lazycss-base"
+import demoLib from "./demoLib"
+//use lib
+useLib(demoLib);
+//use single component
+useLib(demoLib.Button);
+let style = useStyle({
+    //other style list
+});
+```
+
+现在，namespace量尚未被使用。
+
 ### Future
 
 #### 伪元素支持
@@ -227,32 +255,6 @@ let style = useStyle({
         preDemo: "传参示例",
     }
 }, presetStyle)
-```
-
-#### 组件库的可用性
-
-**styleLib.ts**
-
-使用useLib可以从预先定义的styleLib中获取全部/部分样式以加载到当前页面进行使用
-
-```javascript
-export default const styleLib = setStyleLib({
-    Button: {
-        width: 30,
-    }
-})
-```
-
-```javascript
-import { useStyle,useStyleLib } from "lazycss-base"
-import demoLib from "./demoLib"
-//use lib
-useLib(demoLib);
-//use single component
-useLib(demoLib.Button);
-let style = useStyle({
-    //other style list
-});
 ```
 
 #### 响应式设计

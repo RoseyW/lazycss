@@ -1,4 +1,4 @@
-import useStyle from "./styleBase";
+import { useStyle } from "./styleBase";
 import rgb from "./rgbColor";
 import useMedia from "./styleMedia";
 import { useLib, setStyleLib } from "./styleLib"

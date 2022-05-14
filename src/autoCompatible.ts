@@ -1,12 +1,10 @@
-import { List } from "./autoCompatibleList";
+//自动兼容表，使用驼峰命名
+export const List = [
+    "animationDelay"
+];
 
 const autoCompatible = function(cssName: string){
-    for (let i = 0; i < List.length; i++) {
-        console.log(List[i]);
-        if(List[i] === cssName){
-            return true;
-        }
-    }
-    return false;
+    return List.includes(cssName);
 }
+
 export default autoCompatible;

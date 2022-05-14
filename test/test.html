@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="../build/lazyCss.global.js"></script>
 </head>
 <body>
-
 <div class="test">
     hallo
 </div>
+<div class="antButton">
 
+</div>
 </body>
-<script src="../build/lazyCss.global.js"></script>
+<script src="test.js"></script>
 <script>
+    lazyCss.useLib(ant);
+
     let style = lazyCss.useStyle({
         test: {
             width: '100%',
             marginTop: 20,
             autoFlex: "center flex-start",
             animationDelay: "2s"
-        },
+        }
     })
+
+
+    console.log(style);
+
 </script>
 </html>

@@ -1,10 +1,9 @@
-import {cssMethod, cssMethods} from "./cssList";
+import { cssMethod } from "./cssList";
 import autoCompatible from "./autoCompatible";
 
-const render = function(DomName: string,StyleMap: any, cssMethods?: cssMethods){
+const render = function(DomName: string,StyleMap: any){
     const dom = getDom(DomName);
     if(!dom){
-        console.error("can't found dom '" + DomName + "'");
         return false;
     }
     const styleKey = Object.keys(StyleMap);
@@ -20,7 +19,7 @@ const render = function(DomName: string,StyleMap: any, cssMethods?: cssMethods){
 }
 
 //到cssMethod里找，如果没有，则执行默认的值
-const getCssStr = function (styleName: string, styleValue: any, cssMethods?: cssMethods) {
+const getCssStr = function (styleName: string, styleValue: any) {
     let keys = Object.keys(cssMethod);
     if(keys.includes(styleName)){
         let value = cssMethod[styleName](styleValue);
@@ -32,9 +31,7 @@ const getCssStr = function (styleName: string, styleValue: any, cssMethods?: css
             let lowerName = humpToLine(valueKey[i]);
             resultStr += lowerName + ":" + value[valueKey[i]] + ";";
             if(autoValue){
-                resultStr += "-webkit-" + lowerName + ":" + value[valueKey[i]] + ";";
-                resultStr += "-moz-" + lowerName + ":" + value[valueKey[i]] + ";";
-                resultStr += "-o-" + lowerName + ":" + value[valueKey[i]] + ";";
+                resultStr += getCompatibleValue(lowerName, value[valueKey[i]]);
             }
         }
         return resultStr;
@@ -46,9 +43,7 @@ const getCssStr = function (styleName: string, styleValue: any, cssMethods?: css
         let lowerName = humpToLine(styleName);
         let result = lowerName + ":" + styleValue + ";";
         if(autoValue){
-            result += "-webkit-" + lowerName + ":" + styleValue + ";";
-            result += "-moz-" + lowerName + ":" + styleValue + ";";
-            result += "-o-" + lowerName + ":" + styleValue + ";";
+            getCompatibleValue(lowerName, styleValue);
         }
         return result;
     }
@@ -61,7 +56,7 @@ const getDom = function (tagName: string){
         __tagStyles = tagStyles[0];
     } else {
         console.error("find a error");
-        return;
+        return false;
     }
     let tagStyle = __tagStyles.getElementsByTagName("style");
     for (let i = 0; i < tagStyle.length; i++){
@@ -77,6 +72,13 @@ const getDom = function (tagName: string){
 
 const humpToLine = function(value: string) {
     return value.replace(/([A-Z])/g,"-$1").toLowerCase();
+}
+
+const getCompatibleValue = function(lowerName: string, styleValue: any) {
+    let result = "-webkit-" + lowerName + ":" + styleValue + ";";
+    result += "-moz-" + lowerName + ":" + styleValue + ";";
+    result += "-o-" + lowerName + ":" + styleValue + ";";
+    return result;
 }
 
 export default render;

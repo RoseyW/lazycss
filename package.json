@@ -1,6 +1,6 @@
 {
   "name": "lazycss-base",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "a javascript control css tool",
   "private": false,
   "main": "build/lazyCss.cjs.js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/roseyw/lazycss.git"
+    "url": "https://github.com/RoseyW/lazycss.git"
   },
   "files": [
     "build",
