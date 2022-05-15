@@ -8,6 +8,9 @@
 <body>
 <div class="test">
     hallo
+    <div class="child">
+        hoho
+    </div>
 </div>
 <button class="canoeButton"> hallo </button>
 </body>
@@ -23,6 +26,12 @@
             animationDelay: "2s",
             __hover:{
                 backgroundColor: "#244444"
+            },
+            children: {
+                child: {
+                    width: 50,
+                    backgroundColor: '#66ccff',
+                }
             }
         },
     })
@@ -31,6 +40,7 @@
     let b = a.indexOf("__");
     console.log(b);
 
+    style.canoeButton._hover.color = "#143123";
     console.log(style);
 
 </script>

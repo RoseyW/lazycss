@@ -18,8 +18,14 @@ const canoeDesign = lazyCss.setStyleLib("canoeDesign", {
         WebkitTapHighlightColor: 'transparent',
         cursor: 'pointer',
         boxShadow: 'none',
-        transaction: 'all .3s ease-out',
+        transition: 'all .3s ease-out',
         color: '#000',
-        border: '#1e9fff 1px solid'
+        border: '#1e9fff 1px solid',
+        _hover:{
+            opacity: '0.8',
+            backgroundColor: '#66ccff',
+            filter: 'alpha(opacity: 80)',
+            color: '#fff'
+        }
     }
 })

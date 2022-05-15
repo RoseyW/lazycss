@@ -126,7 +126,7 @@ let style = useStyle({
 
 autoFlex接收一个字符串，字符串中可以存储两个/一个值，该值描述了一个flex布局的方式，该方式的描述方式与css相同
 
-### 兼容浏览器
+### 兼容浏览器[^ 0.1.9]
 
 使用一行代码就可以做到多浏览器样式兼容
 
@@ -151,7 +151,7 @@ Will output
 
 **目前支持方案：基于List表，为样式进行自动化组装-webkit-、-moz-、-o-标签**
 
-### 组件库的可用性
+### 组件库的可用性[^ 0.1.11]
 
 **styleLib.ts**
 
@@ -181,7 +181,7 @@ let style = useStyle({
 
 **部分样式功能尚未被实现。**
 
-### 伪元素支持
+### 伪元素支持[^ 0.1.12]
 
 使用更加简便方式来为dom添加伪元素
 
@@ -208,11 +208,9 @@ let style = useStyle({
 
 在**0.1.12**版本中**已被支持**，但并没有被**规范化输入**
 
-### Future
+在**0.1.13**版本中，响应式刷新已被实现
 
-#### 子样式
-
-
+#### 子样式[^ 0.1.13]
 
 从父元素上继承样式
 
@@ -228,21 +226,9 @@ let style = useStyle({
 })
 ```
 
-另一种添加方式
+已在**0.1.13**版本中支持
 
-```javascript
-let style = useStyle({
-    demo: {
-        width: 30
-    }
-})
-let testStyle = {
-    demo_child:{
-        position: 'relative'
-    }
-}
-style.addChild(demo, testStyle);
-```
+### Future
 
 #### 预设的样式组
 

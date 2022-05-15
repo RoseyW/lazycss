@@ -122,7 +122,7 @@ let style = useStyle({
 
 autoFlex accepts a string that can store two/one values that describe a Flex layout, this describe same css describe.
 
-### Compatibility explorer
+### Compatibility explorer[^ 0.1.9]
 
 Multi-browser style compatibility can be achieved with a single line of code
 
@@ -147,7 +147,7 @@ Will output
 
 **Currently supported solutions: Automatic assembly of styles - webkit -, -moz -, -o- tags based on the List table**
 
-### Availability of component libraries
+### Availability of component libraries[^ 0.1.11]
 
 **styleLib.ts**
 
@@ -177,7 +177,7 @@ let style = useStyle({
 
 **'part style' functionality has not yet been implemented.**
 
-### Support pseudo elements
+### Support pseudo elements[^ 0.1.12]
 
 Use an easier way to add pseudo-elements to the DOM
 
@@ -200,9 +200,9 @@ let style = useStyle({
 
 is supported in **0.1.12**, but is **not** normalized input, so if you use this function, you should becareful.
 
-### Future
+In version **0.1.13**, reactive refresh was implemented
 
-#### Child elements
+#### Child elements[^ 0.1.13]
 
 inhert style from father element
 
@@ -233,6 +233,8 @@ let testStyle = {
 }
 style.addChild(demo, testStyle);
 ```
+
+### Future
 
 #### Preset style group
 

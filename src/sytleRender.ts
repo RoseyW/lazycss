@@ -1,6 +1,6 @@
 import { cssMethod } from "./cssList";
 import autoCompatible from "./autoCompatible";
-
+//渲染主CSS
 const render = function(DomName: string,StyleMap: any){
     const dom = getDom(DomName);
     if(!dom){
@@ -9,8 +9,9 @@ const render = function(DomName: string,StyleMap: any){
     const styleKey = Object.keys(StyleMap);
     let styleList = "." + DomName + "{";
     let allPseudoList = "";
+    let allChildList = "";
     for(let i=0; i < styleKey.length; i++){
-        if(StyleMap[styleKey[i]] === "fatherNode"){
+        if(styleKey[i].toString() === "fatherNode"){
             continue;
         }
         if(styleKey[i].toString().indexOf("__") === 0 || styleKey[i].toString().indexOf("_") === 0){
@@ -18,13 +19,16 @@ const render = function(DomName: string,StyleMap: any){
             allPseudoList += pseudoRender(DomName, styleKey[i].toString(), StyleMap[styleKey[i]]);
             continue;
         }
+        if(styleKey[i].toString() === "children"){
+            allChildList = childRender(DomName, StyleMap[styleKey[i]]);
+            continue;
+        }
         styleList += getCssStr(styleKey[i], StyleMap[styleKey[i]]);
     }
     styleList += "}";
     dom.innerHTML = styleList;
-    dom.innerHTML += allPseudoList;
 }
-
+//渲染伪元素CSS
 const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: any){
     let pseudoSymbol = "";
     let pseudoName = "";
@@ -40,10 +44,37 @@ const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: a
     const styleKey = Object.keys(pseudoMap);
     let pseudoList = "." + DomName + pseudoSymbol + pseudoName + "{";
     for(let i=0; i < styleKey.length; i++){
+        if(styleKey[i].toString() === "fatherNode"){
+            continue;
+        }
         pseudoList += getCssStr(styleKey[i], pseudoMap[styleKey[i]]);
     }
     pseudoList += "}";
+    let dom = getDom(DomName + "." + pseudoType);
+    if(!dom){
+        return false;
+    }
+    dom.innerHTML = pseudoList;
     return pseudoList;
+}
+
+//渲染子元素CSS
+const childRender = function (fatherNode: string, childList: any){
+    let keys = Object.keys(childList);
+    let childAllValue = "";
+    for (let i = 0; i < keys.length; i++) {
+        let childName = keys[i];
+        let childStyle = childList[keys[i]];
+        let childValue = "." + fatherNode + " ." + childName + "{";
+        let childStyleKey = Object.keys(childStyle);
+        for (let j = 0; j < childStyleKey.length; j++) {
+            let key = childStyleKey[j];
+            childValue += getCssStr(key, childStyle[key]);
+        }
+        childValue += "}";
+        childAllValue += childValue;
+    }
+    return childAllValue;
 }
 
 //到cssMethod里找，如果没有，则执行默认的值
@@ -109,4 +140,8 @@ const getCompatibleValue = function(lowerName: string, styleValue: any) {
     return result;
 }
 
-export default render;
+export {
+    render,
+    pseudoRender,
+    childRender
+};
