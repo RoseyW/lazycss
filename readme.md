@@ -202,7 +202,7 @@ is supported in **0.1.12**, but is **not** normalized input, so if you use this 
 
 In version **0.1.13**, reactive refresh was implemented
 
-#### Child elements[^ 0.1.13]
+### Child elements[^ 0.1.13]
 
 inhert style from father element
 
