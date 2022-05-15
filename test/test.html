@@ -46,7 +46,15 @@
     console.log(style);
 
     function light(){
-        style.test.color = lazyCss.rgb(221,223,245);
+        let j = 0
+        setInterval(() => {
+            style.test.color = lazyCss.rgb(110 + j, 140 + j, 180 + j);
+            j++;
+            if( j === 60 ){
+                j = 0;
+            }
+        }, 1000)
+
     }
 </script>
 </html>

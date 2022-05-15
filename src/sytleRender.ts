@@ -27,6 +27,7 @@ const render = function(DomName: string,StyleMap: any){
     }
     styleList += "}";
     dom.innerHTML = styleList;
+    dom.innerHTML += allChildList;
 }
 //渲染伪元素CSS
 const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: any){
