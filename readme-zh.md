@@ -20,7 +20,7 @@ Node.js使用
 npm i lazycss-base
 ```
 
-latest version: 0.1.13
+latest version: 0.1.14
 
 ### 使用方法
 

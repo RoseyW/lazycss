@@ -12,12 +12,14 @@
         hoho
     </div>
 </div>
-<button class="canoeButton"> hallo </button>
+<button class="canoeButton" onclick="light()"> hallo </button>
 </body>
 <script src="test.js"></script>
 <script>
+    //使用外置的组件库！
     lazyCss.useLib(canoeDesign);
 
+    //定义css样式
     let style = lazyCss.useStyle({
         test: {
             width: '100%',
@@ -39,9 +41,12 @@
     let a = "__hover";
     let b = a.indexOf("__");
     console.log(b);
-
+    //reactive
     style.canoeButton._hover.color = "#143123";
     console.log(style);
 
+    function light(){
+        style.test.color = lazyCss.rgb(221,223,245);
+    }
 </script>
 </html>

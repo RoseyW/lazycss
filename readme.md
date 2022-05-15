@@ -20,7 +20,7 @@ on Node.js:
 npm i lazycss-base
 ```
 
-latest version: 0.1.13
+latest version: 0.1.14
 
 ### Use methods
 
