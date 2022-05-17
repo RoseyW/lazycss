@@ -2,7 +2,13 @@
 
 ### Describe
 
-Let's you edit stylesheets in an easier way
+Let's you edit stylesheets in an easier way.
+
+If you think this project is good, please give a "STAR", which is very important to me.
+
+The English document is partly based on Youdao translation, which may have some errors.
+
+If you have any suggestions or comments please leave them in the comments section below.
 
 ### Install methods
 
@@ -122,7 +128,7 @@ let style = useStyle({
 
 autoFlex accepts a string that can store two/one values that describe a Flex layout, this describe same css describe.
 
-### Compatibility explorer[^ 0.1.9]
+### Compatibility explorer [0.1.9]
 
 Multi-browser style compatibility can be achieved with a single line of code
 
@@ -147,7 +153,7 @@ Will output
 
 **Currently supported solutions: Automatic assembly of styles - webkit -, -moz -, -o- tags based on the List table**
 
-### Availability of component libraries[^ 0.1.11]
+### Availability of component libraries [0.1.11]
 
 **styleLib.ts**
 
@@ -177,7 +183,7 @@ let style = useStyle({
 
 **'part style' functionality has not yet been implemented.**
 
-### Support pseudo elements[^ 0.1.12]
+### Support pseudo elements [0.1.12]
 
 Use an easier way to add pseudo-elements to the DOM
 
@@ -202,7 +208,32 @@ is supported in **0.1.12**, but is **not** normalized input, so if you use this 
 
 In version **0.1.13**, reactive refresh was implemented
 
-### Child elements[^ 0.1.13]
+### Set Unit [0.1.16]
+
+This function allows you to set every default units that needs to be added automatically.
+
+This allows you to use any units recognized by CSS, and LazyCss does not check for this.
+
+```javascript
+import {setUnit, useStyle} from "lazycss-base"
+setUnit("length", "%");
+
+//use array
+setUnit(["length", "height", "width"], "%");
+
+let style = useStyle({
+    //... more code
+})
+
+//other use method
+setUnit("width","%");
+style.demo.width = 22;
+setUnit("width","px");
+//equal to
+style.demo.width = '22%';
+```
+
+### Child elements [0.1.13]
 
 inhert style from father element
 
@@ -279,5 +310,8 @@ let media_screen_width_max_768 = styleMedia("screen", "max-width", 768, {
 style.setMedia(media_screen_width_max_768);
 ```
 
+#### Default suffix
 
+**styleSuffix.ts**
 
+There will be an automated suffix function that works with setUnit to easily add units.

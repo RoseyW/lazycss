@@ -3,12 +3,14 @@ import {pseudoRender, render} from "./sytleRender";
 
 declare global {
     interface Window {
-        cssLazy: any
+        cssLazy: any,
+        cssUnit: any
     }
 }
 
 //基础proxy定义
 const setBaseProxy = function(){
+    window.cssUnit = Object.create({});
     window.cssLazy = new Proxy({}, {
         set: function (target, property, value, receiver) {
             if(value === "" || value === undefined || value === null){

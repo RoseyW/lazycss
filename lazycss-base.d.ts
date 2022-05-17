@@ -17,6 +17,8 @@ export declare const setPresetStyle: ({ ...args }: cssList) => string;
 
 export declare const setStyleLib: (namespace: string, { ...args }: cssList) => styleLib;
 
+export declare const setUnit: (name: string, unit: string) => void;
+
 declare interface styleLib {
     namespace: string;
     cssList: Object;

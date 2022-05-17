@@ -2,7 +2,13 @@
 
 ### 简述
 
-让你使用更简便的方式来编辑样式表
+让你使用更简便的方式来编辑样式表。
+
+如果您觉得该项目比较好的话，请给予一个“star”吧，这对于我来说非常重要。
+
+英文文档部分基于有道翻译，可能会有部分差错。
+
+如果有任何建议或者看法，请在仓库下方进行评论。
 
 ### 安装方法
 
@@ -126,7 +132,7 @@ let style = useStyle({
 
 autoFlex接收一个字符串，字符串中可以存储两个/一个值，该值描述了一个flex布局的方式，该方式的描述方式与css相同
 
-### 兼容浏览器[^ 0.1.9]
+### 兼容浏览器 [0.1.9]
 
 使用一行代码就可以做到多浏览器样式兼容
 
@@ -151,7 +157,7 @@ Will output
 
 **目前支持方案：基于List表，为样式进行自动化组装-webkit-、-moz-、-o-标签**
 
-### 组件库的可用性[^ 0.1.11]
+### 组件库的可用性 [0.1.11]
 
 **styleLib.ts**
 
@@ -181,7 +187,7 @@ let style = useStyle({
 
 **部分样式功能尚未被实现。**
 
-### 伪元素支持[^ 0.1.12]
+### 伪元素支持 [0.1.12]
 
 使用更加简便方式来为dom添加伪元素
 
@@ -210,7 +216,7 @@ let style = useStyle({
 
 在**0.1.13**版本中，响应式刷新已被实现
 
-### 子样式[^ 0.1.13]
+### 子样式 [0.1.13]
 
 从父元素上继承样式
 
@@ -227,6 +233,31 @@ let style = useStyle({
 ```
 
 已在**0.1.13**版本中支持
+
+### 设置单位 [0.1.16]
+
+这个功能允许你设置每一个需要自动添加的默认单位。
+
+这允许你使用任何一个可以被css识别的单位，LazyCss并不会对此进行检查。
+
+```javascript
+import {setUnit, useStyle} from "lazycss-base"
+setUnit("length", "%");
+
+//use array
+setUnit(["length", "height", "width"], "%");
+
+let style = useStyle({
+    //... more code
+})
+
+//other use method
+setUnit("width","%");
+style.demo.width = 22;
+setUnit("width","px");
+//equal to
+style.demo.width = '22%';
+```
 
 ### Future
 
@@ -274,3 +305,10 @@ let media_screen_width_max_768 = styleMedia("screen", "max-width", 768, {
 style.setMedia(media_screen_width_max_768);
 ```
 
+#### 默认的后缀
+
+**styleSuffix.ts**
+
+将会提供一个自动化后缀功能，配合**setUnit**轻松完成单位添加功能。
+
+目前该功能框架位于styleSuffix.ts->const defaultSuffix

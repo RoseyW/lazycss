@@ -1,5 +1,6 @@
 import { cssMethod } from "./cssList";
 import autoCompatible from "./autoCompatible";
+import {readSuffix} from "./styleSuffix";
 //渲染主CSS
 const render = function(DomName: string,StyleMap: any){
     const dom = getDom(DomName);
@@ -96,12 +97,13 @@ const getCssStr = function (styleName: string, styleValue: any) {
         }
         return resultStr;
     } else {
-        if(typeof styleValue === "number"){
+        let autoSuffix = readSuffix(styleName);
+        if(typeof styleValue === "number" && autoSuffix === ""){
             styleValue = styleValue + "px";
         }
         let autoValue = autoCompatible(styleName);
         let lowerName = humpToLine(styleName);
-        let result = lowerName + ":" + styleValue + ";";
+        let result = lowerName + ":" + styleValue + autoSuffix + ";";
         if(autoValue){
             getCompatibleValue(lowerName, styleValue);
         }
