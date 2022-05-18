@@ -1,6 +1,6 @@
 import {init} from "./styleBase";
 
-
+const defaultSuffix = {};
 
 const setUnit = function (name: string,unit: string){
 

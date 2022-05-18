@@ -1,6 +1,6 @@
 import { cssMethod } from "./cssList";
 import autoCompatible from "./autoCompatible";
-import {readSuffix} from "./styleSuffix";
+import { readSuffix } from "./cssSuffix";
 //渲染主CSS
 const render = function(DomName: string,StyleMap: any){
     const dom = getDom(DomName);

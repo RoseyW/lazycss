@@ -28,6 +28,24 @@ npm i lazycss-base
 
 latest version: 0.1.15
 
+### 文件列表
+
+| 文件路径             | 文件说明              |
+| -------------------- | --------------------- |
+| ./lazycss-base.d.ts  | ts声明文件            |
+| ./api-extractor.json | api-extractor配置文件 |
+| ./rollup.config.ts   | rollup配置文件        |
+| ./tsconfig.json      | ts配置文件            |
+| ./test               | 测试文件              |
+| ./src/index.ts       | 入口文件              |
+| ./src/styleBase.ts   | useStyle              |
+| ./src/styleLib.ts    | useLib/setStyleLib    |
+| ./src/cssSuffix.ts | cssSuffix |
+| ./src/styleUnit.ts | setUnit |
+| ./src/styleRender.ts | 核心渲染器 |
+| ./src/styleMedia.ts | 媒体查询（自适应）文件 |
+| ./src/stylePreset.ts | 预设样式文件 |
+
 ### 使用方法
 
 普通页面：
@@ -307,7 +325,7 @@ style.setMedia(media_screen_width_max_768);
 
 #### 默认的后缀
 
-**styleSuffix.ts**
+**cssSuffix.ts**
 
 将会提供一个自动化后缀功能，配合**setUnit**轻松完成单位添加功能。
 
