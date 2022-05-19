@@ -1,15 +1,15 @@
 import {init} from "./styleBase";
 
-const defaultSuffix = {};
-
-const setUnit = function (name: string,unit: string){
-
-
+const setUnit = function (name: string|Array<string>,unit: string){
     init();
     //将name和unit挂载到window上
-    window.cssUnit[name] = unit;
-    console.log(window.cssUnit);
-
+    if(typeof name === "string"){
+        window.cssUnit[name] = unit;
+    } else if(name.length > 0){
+        name.forEach((item: string,index: number) => {
+            window.cssUnit[item] = unit;
+        })
+    }
 }
 
 export { setUnit };

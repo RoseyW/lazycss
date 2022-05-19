@@ -26,7 +26,7 @@ Node.js使用
 npm i lazycss-base
 ```
 
-latest version: 0.1.15
+latest version: 0.1.16
 
 ### 文件列表
 
@@ -77,8 +77,6 @@ let style = useStyle({
 style.cssName.cssListParam = cssValue;
 ```
 
-
-
 ### 示例
 
 ```	html
@@ -100,13 +98,9 @@ let style = useStyle({
 })
 ```
 
-
-
 ### 工作原理
 
 LazyCss会在useStyle时会根据传入的样式表生成对应的css样式表
-
-
 
 ### 更多功能
 
@@ -131,8 +125,6 @@ let style = useStyle({
     }
 })
 ```
-
-
 
 ### 特别的样式
 
@@ -277,6 +269,8 @@ setUnit("width","px");
 style.demo.width = '22%';
 ```
 
+**0.1.17**支持使用数组
+
 ### Future
 
 #### 预设的样式组
@@ -323,10 +317,65 @@ let media_screen_width_max_768 = styleMedia("screen", "max-width", 768, {
 style.setMedia(media_screen_width_max_768);
 ```
 
-#### 默认的后缀
+*通过js控制的响应式设计，不依托于css的media媒体查询
+
+```javascript
+setMedia(config: mediaConfig, cssList: cssList)
+```
+
+```javascript
+import { setMedia, mediaConfig } from "lazycss-base"
+
+let media_config = mediaConfig({ 
+    //some config... 
+});
+let media = setMedia(media_config, {
+    //some css...
+});
+```
+
+example:
+
+```javascript
+let style = useStyle({
+    demo: {
+        width: 65
+    }
+})
+let media_config = mediaConfig({ 
+    rule: { maxWidth: 200, maxHeight: 300 }, //when max width greater than 200,and max height greater than 300
+});
+let media = setMedia(media_config, {
+    demo: {
+        width: 55
+    }
+});
+```
+
+#### 自动后缀
 
 **cssSuffix.ts**
 
 将会提供一个自动化后缀功能，配合**setUnit**轻松完成单位添加功能。
 
-目前该功能框架位于styleSuffix.ts->const defaultSuffix
+#### 编译器
+
+将css的编译时间提前至编译期，并且将css独立出来。
+
+#### 字符匹配模式
+
+使用使用特殊的样式定义方式来定义一个匹配字符的css样式表
+
+```javascript
+import { useStyle } from "lazycss-base"
+
+let style = useStyle({
+    '[col-${size}]': (size: string) => {
+        //match col-1,col-2...
+        return {
+            width: size
+        }
+    }
+})
+```
+

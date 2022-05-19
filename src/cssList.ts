@@ -20,11 +20,6 @@ export interface cssMethod {
     result: string|number|Function|boolean
 }
 
-//该函数允许用户使用object列表形式导入私有样式库
-// export const createMethod = function ({...args}): cssMethods {
-//     return methods;
-// }
-//返回一个map
 export const cssMethod = {
     width: (value: any) => {return { width: typeof value === "number" ? value + "px" : value }},
     height: (value: any) => {return { height: typeof value === "number" ? value + "px" : value }},
@@ -32,7 +27,7 @@ export const cssMethod = {
     autoFlex: (value: any) => { return autoFlexMethods(value) },
     animation: (value: any) => {return { animation: value }},
     animationDelay: (value: any) => {return { animationDelay: value }},
-};
+}
 
 const autoFlexMethods = function (value: any){
     let result = {};

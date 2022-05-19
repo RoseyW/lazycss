@@ -253,6 +253,8 @@ setUnit("width","px");
 style.demo.width = '22%';
 ```
 
+use array was support in **0.1.17**
+
 ### Child elements [0.1.13]
 
 inhert style from father element
@@ -330,8 +332,65 @@ let media_screen_width_max_768 = styleMedia("screen", "max-width", 768, {
 style.setMedia(media_screen_width_max_768);
 ```
 
-#### Default suffix
+*Responsive design controlled by JS, not relying on CSS media methods
+
+```javascript
+setMedia(config: mediaConfig, cssList: cssList)
+```
+
+```javascript
+import { setMedia, mediaConfig } from "lazycss-base"
+
+let media_config = mediaConfig({ 
+    //some config... 
+});
+let media = setMedia(media_config, {
+    //some css...
+});
+```
+
+example:
+
+```javascript
+let style = useStyle({
+    demo: {
+        width: 65
+    }
+})
+let media_config = mediaConfig({ 
+    rule: { maxWidth: 200, maxHeight: 300 }, //when max width greater than 200,and max height greater than 300
+});
+let media = setMedia(media_config, {
+    demo: {
+        width: 55
+    }
+});
+```
+
+#### Automatic suffix
 
 **cssSuffix.ts**
 
 There will be an automated suffix function that works with setUnit to easily add units.
+
+#### Compiler
+
+Move the compile of the CSS up to compile time and separate the CSS.
+
+#### Letter match
+
+Use a CSS style sheet that uses a special style definition to define a matching character
+
+```javascript
+import { useStyle } from "lazycss-base"
+
+let style = useStyle({
+    '[col-${size}]': (size: string) => {
+        //match col-1,col-2...
+        return {
+            width: size
+        }
+    }
+})
+```
+

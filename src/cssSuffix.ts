@@ -1,4 +1,6 @@
 
+const defaultSuffix = {};
+
 const readSuffix = function (cssName: string){
     let unit = window.cssUnit;
     let keys = Object.keys(unit);
@@ -7,6 +9,10 @@ const readSuffix = function (cssName: string){
     } else {
         return "";
     }
+}
+
+const autoSuffix = function (cssName: string){
+
 }
 
 export { readSuffix }

@@ -12,7 +12,7 @@
         hoho
     </div>
 </div>
-<button class="canoeButton" onclick="splits()"> hallo </button>
+<button class="canoeButton"> hallo </button>
 <button class="abc"> abc </button>
 </body>
 <script src="test.js"></script>
@@ -20,7 +20,7 @@
     //使用外置的组件库！
     lazyCss.useLib(canoeDesign);
 
-    lazyCss.setUnit("width", "%");
+    lazyCss.setUnit(["width", "marginTop"], "%");
 
     //定义css样式
     let style = lazyCss.useStyle({
@@ -44,23 +44,36 @@
     let a = "__hover";
     let b = a.indexOf("__");
     console.log(b);
-    //reactive
+
+    window.onresize = function (){
+        let target = this;
+        if (target.resizeFlag) {
+            clearTimeout(target.resizeFlag);
+        }
+
+        target.resizeFlag = setTimeout(function() {
+            console.log(2);
+            target.resizeFlag = null;
+        }, 100);
+    }
+
+
+    let s = {
+        '[col-${var}]': () => {
+
+        },
+        demo: {
+            height: 300
+        }
+    }
+
+    let key = Object.keys(s);
+
+    console.log(key);
+
     console.time("acc");
     style.canoeButton.color = "#143123";
     console.timeEnd("acc");
 
-    function test(){
-        splits();
-    }
-
-    function splits(){
-        let str = ".canoeButton{font-size:14px;height:40px;width:100px;padding-top:0px;padding-bottom:0px;padding-left:5px;padding-right:5px;text-align:center;text-decoration:none;text-transform:uppercase;vertical-align:middle;outline:none;user-select:none;border-radius:#1E9FFF;background-color:#1E9FFF;-webkit-tap-highlight-color:transparent;cursor:pointer;box-shadow:none;transition:all .3s ease-out;color:#143123;border:#1e9fff 1px solid;}";
-        console.time("abc");
-        let a = str.split("." + "canoeButton{");
-        let b = a[1].split("}");
-        console.log(b);
-        console.timeEnd("abc");
-
-    }
 </script>
 </html>
