@@ -10,6 +10,12 @@ The English document is partly based on Youdao translation, which may have some 
 
 If you have any suggestions or comments please leave them in the comments section below.
 
+### Contact
+
+Email: roseywrong@163.com
+
+welcome to contact me if you have good idea or opinion.
+
 ### Install methods
 
 on ordinary html：
