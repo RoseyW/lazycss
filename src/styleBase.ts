@@ -55,6 +55,7 @@ const createElementProxy = function (fatherNode: string,cssList: cssList){
         }
     }
     cssList.fatherNode = fatherNode;
+    cssList.autoGroup = {};
     return new Proxy(cssList, {
         set: function (target, property, value, receiver) {
             if (property === "fatherNode") {
@@ -84,8 +85,8 @@ const useStyle = function ({...args}: cssList){
     //初始化
     init();
     let mapArgs = Object.entries(args);
+    console.log(mapArgs);
     for (let i =0; i < mapArgs.length; i++) {
-        render(mapArgs[i][0], mapArgs[i][1]);
         window.cssLazy[mapArgs[i][0]] = createElementProxy(mapArgs[i][0],mapArgs[i][1]);
     }
     return window.cssLazy;

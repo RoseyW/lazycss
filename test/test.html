@@ -23,6 +23,7 @@
     lazyCss.setUnit(["width", "marginTop"], "%");
 
     //定义css样式
+    console.time("acc");
     let style = lazyCss.useStyle({
         test: {
             width: '100%',
@@ -38,42 +39,31 @@
                     backgroundColor: '#66ccff',
                 }
             }
-        },
+        }
     })
-
-    let a = "__hover";
-    let b = a.indexOf("__");
-    console.log(b);
-
-    window.onresize = function (){
-        let target = this;
-        if (target.resizeFlag) {
-            clearTimeout(target.resizeFlag);
-        }
-
-        target.resizeFlag = setTimeout(function() {
-            console.log(2);
-            target.resizeFlag = null;
-        }, 100);
-    }
-
-
-    let s = {
-        '[col-${var}]': () => {
-
-        },
-        demo: {
-            height: 300
-        }
-    }
-
-    let key = Object.keys(s);
-
-    console.log(key);
-
-    console.time("acc");
-    style.canoeButton.color = "#143123";
     console.timeEnd("acc");
 
+    // window.onresize = function (){
+    //     let target = this;
+    //     if (target.resizeFlag) {
+    //         clearTimeout(target.resizeFlag);
+    //     }
+    //
+    //     target.resizeFlag = setTimeout(function() {
+    //         console.log(2);
+    //         target.resizeFlag = null;
+    //     }, 100);
+    // }
+
 </script>
+<style>
+    /*@media screen and (max-width: 300px) {*/
+    /*    body {*/
+    /*        background-color:lightblue;*/
+    /*    }*/
+    /*    .canoeButton:hover{*/
+    /*        background-color: #1e9fff*/
+    /*    }*/
+    /*}*/
+</style>
 </html>

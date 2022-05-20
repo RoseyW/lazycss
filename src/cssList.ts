@@ -9,6 +9,7 @@ interface cssList {
     color ?: string,
     backgroundColor ?: string,
     backgroundUrl ?: string,
+    autoGroup ?: Object,
 }
 
 export interface cssMethods {

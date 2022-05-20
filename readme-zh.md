@@ -26,7 +26,7 @@ Node.js使用
 npm i lazycss-base
 ```
 
-latest version: 0.1.16
+latest version: 0.1.18
 
 ### 文件列表
 

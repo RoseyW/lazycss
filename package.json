@@ -1,7 +1,7 @@
 {
   "name": "lazycss-base",
-  "version": "0.1.16",
-  "description": "a javascript control css tool",
+  "version": "0.1.18",
+  "description": "A javaScript powered Css tool",
   "private": false,
   "main": "build/lazyCss.cjs.js",
   "module": "build/lazyCss.es.js",
@@ -23,7 +23,9 @@
     "lazycss-base.d.ts"
   ],
   "keywords": [
-    "css"
+    "Css",
+    "JavaScript",
+    "JavaScript to Css"
   ],
   "author": "RoseyWrong",
   "license": "MIT",

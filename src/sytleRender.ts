@@ -2,38 +2,62 @@ import { cssMethod } from "./cssList";
 import autoCompatible from "./autoCompatible";
 import { readSuffix } from "./cssSuffix";
 //渲染主CSS
+//主函数，跟据key特征分配渲染方式
 const render = function(DomName: string,StyleMap: any){
+
+    //优先进行模式匹配
+    const pattern = /[\[](.*)[\]]/;
+    let strMatch = DomName.match(pattern);
+    if(strMatch !== null){
+        //模式匹配
+        strMatchRender(strMatch[1], StyleMap);
+        return false;
+    }
+
     const dom = getDom(DomName);
     if(!dom){
         return false;
     }
     const styleKey = Object.keys(StyleMap);
     let styleList = "." + DomName + "{";
-    let allPseudoList = "";
-    let allChildList = "";
     for(let i=0; i < styleKey.length; i++){
-        if(styleKey[i].toString() === "fatherNode"){
+        let itemName = styleKey[i];
+        //父节点直接跳过
+        if(["fatherNode", "autoGroup"].includes(itemName.toString())){
             continue;
         }
-        if(styleKey[i].toString().indexOf("__") === 0 || styleKey[i].toString().indexOf("_") === 0){
+        //伪元素
+        if(itemName.toString().indexOf("__") === 0 || itemName.toString().indexOf("_") === 0){
             //进入伪元素渲染队列
-            allPseudoList += pseudoRender(DomName, styleKey[i].toString(), StyleMap[styleKey[i]]);
+            pseudoRender(DomName, itemName.toString(), StyleMap[itemName]);
             continue;
         }
-        if(styleKey[i].toString() === "children"){
-            allChildList = childRender(DomName, StyleMap[styleKey[i]]);
+        //子元素
+        if(itemName.toString() === "children"){
+            childRender(DomName, StyleMap[itemName]);
             continue;
         }
-        styleList += getCssStr(styleKey[i], StyleMap[styleKey[i]]);
+        //media媒体查询元素
+        if(itemName.toString() === "media"){
+            let mediaList = Object.keys(StyleMap[itemName]);
+            console.log(mediaList);
+            for (let j = 0; j < mediaList.length; j++) {
+                let mediaName = mediaList[j];
+                mediaRender(DomName, mediaName, StyleMap[itemName][mediaName]);
+            }
+
+            continue;
+        }
+        //默认渲染队列
+        styleList += getCssStr(itemName, StyleMap[itemName]);
     }
     styleList += "}";
     dom.innerHTML = styleList;
-    dom.innerHTML += allChildList;
 }
+
 //渲染伪元素CSS
 const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: any){
-    let pseudoSymbol = "";
-    let pseudoName = "";
+    let pseudoSymbol,pseudoName;
     if(pseudoType.indexOf("__") === 0){
         //双点
         pseudoSymbol = "::";
@@ -60,12 +84,37 @@ const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: a
     return pseudoList;
 }
 
+const strMatchRender = function (cssName: string, cssMethod: Function){
+    let split = cssName.split("?");
+    //对cssName操作，并进行渲染
+    cssMethod("123");
+}
+
+const mediaRender = function (DomName: string,itemName: string, styleList: Object){
+    window.cssLazy[DomName]["autoGroup"][itemName] = styleList;
+    console.log(window.cssLazy[DomName]);
+    let target;
+    window.onresize = function (){
+        if (target) {
+            clearTimeout(target);
+        }
+        target = setTimeout(function() {
+            console.log(document.body.clientWidth);
+            let access = 0;
+            target = null;
+        }, 100);
+    }
+}
+
 //渲染子元素CSS
 const childRender = function (fatherNode: string, childList: any){
     let keys = Object.keys(childList);
-    let childAllValue = "";
     for (let i = 0; i < keys.length; i++) {
         let childName = keys[i];
+        let dom = getDom(fatherNode + "." + childName);
+        if(!dom){
+            return false;
+        }
         let childStyle = childList[keys[i]];
         let childValue = "." + fatherNode + " ." + childName + "{";
         let childStyleKey = Object.keys(childStyle);
@@ -74,9 +123,8 @@ const childRender = function (fatherNode: string, childList: any){
             childValue += getCssStr(key, childStyle[key]);
         }
         childValue += "}";
-        childAllValue += childValue;
+        dom.innerHTML = childValue;
     }
-    return childAllValue;
 }
 
 //到cssMethod里找，如果没有，则执行默认的值

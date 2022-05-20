@@ -9,6 +9,7 @@ declare interface cssList {
     color?: string;
     backgroundColor?: string;
     backgroundUrl?: string;
+    autoGroup?: Object;
 }
 
 export declare const rgb: (r: number, g: number, b: number) => string;
@@ -17,7 +18,7 @@ export declare const setPresetStyle: ({ ...args }: cssList) => string;
 
 export declare const setStyleLib: (namespace: string, { ...args }: cssList) => styleLib;
 
-export declare const setUnit: (name: string, unit: string) => void;
+export declare const setUnit: (name: string | Array<string>, unit: string) => void;
 
 declare interface styleLib {
     namespace: string;
