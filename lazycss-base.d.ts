@@ -1,5 +1,5 @@
 declare interface cssList {
-    fatherNode: string;
+    fatherNode?: string;
     width?: number;
     height?: number;
     marginTop?: number;
@@ -9,7 +9,15 @@ declare interface cssList {
     color?: string;
     backgroundColor?: string;
     backgroundUrl?: string;
-    autoGroup?: Object;
+}
+
+declare interface mediaCondition {
+    maxWidth?: number | string;
+    maxHeight?: number | string;
+}
+
+declare interface mediaConfig {
+    condition: mediaCondition;
 }
 
 export declare const rgb: (r: number, g: number, b: number) => string;
@@ -27,7 +35,7 @@ declare interface styleLib {
 
 export declare const useLib: (lib: styleLib) => boolean;
 
-export declare const useMedia: (mediaType: string, mediaFeature: string, featureValue: string | number, styleList: cssList) => void;
+export declare const useMedia: (config: mediaConfig, styleList: cssList) => void;
 
 export declare const useStyle: ({ ...args }: cssList) => any;
 
