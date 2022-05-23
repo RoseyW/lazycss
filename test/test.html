@@ -23,14 +23,13 @@
     lazyCss.setUnit(["width", "marginTop"], "%");
 
     //定义css样式
-    console.time("acc");
     let style = lazyCss.useStyle({
         test: {
             width: '100%',
             marginTop: 20,
             autoFlex: "center flex-start",
             animationDelay: "2s",
-            __hover:{
+            _hover:{
                 backgroundColor: "#244444"
             },
             children: {
@@ -38,10 +37,71 @@
                     width: 50,
                     backgroundColor: '#66ccff',
                 }
+            },
+            'col-?': (val) => {
+                console.log(val);
             }
         }
     })
-    console.timeEnd("acc");
+
+    console.log(window.cssLazy_Beta);
+    // //
+    // let cssObj = new Proxy({}, {
+    //     set(target, p, value, receiver) {
+    //         if(p !== '__style'){
+    //             target['__style'][p] = value;
+    //         } else {
+    //             target[p] = value;
+    //         }
+    //
+    //     },
+    //     get(target, p, receiver) {
+    //         if(p !== "__style"){
+    //             return target['__style'][p];
+    //         } else {
+    //             return target[p];
+    //         }
+    //     }
+    // });
+    //
+    //
+    //
+    // cssObj.__style = new Proxy({}, {
+    //     set(target, p, value, receiver) {
+    //         if(p !== "default"){
+    //             target['default'][p] = value;
+    //         } else {
+    //             target[p] = value;
+    //         }
+    //     },
+    //     get(target, p, receiver) {
+    //         return target['default'];
+    //     }
+    // });
+    //
+    // cssObj.__style.default = new Proxy({}, {
+    //     set(target, p, value, receiver) {
+    //         target[p] = value;
+    //     },
+    //     get(target, p, receiver) {
+    //         return target[p];
+    //     }
+    // })
+    //
+    // cssObj.__style.demo = new Proxy({}, {
+    //     set(target, p, value, receiver) {
+    //         target[p] = value;
+    //     },
+    //     get(target, p, receiver) {
+    //         return target[p];
+    //     }
+    // })
+    //
+    // cssObj.__style.demo.height = 431;
+    //
+    //
+    // console.log(cssObj.demo.height);
+
 
     // window.onresize = function (){
     //     let target = this;
@@ -65,5 +125,7 @@
     /*        background-color: #1e9fff*/
     /*    }*/
     /*}*/
+
+
 </style>
 </html>

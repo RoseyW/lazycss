@@ -1,5 +1,5 @@
 interface cssList {
-    fatherNode : string,
+    fatherNode ?: string,
     width ?: number,
     height ?: number,
     marginTop ?: number,
@@ -9,7 +9,6 @@ interface cssList {
     color ?: string,
     backgroundColor ?: string,
     backgroundUrl ?: string,
-    autoGroup ?: Object,
 }
 
 export interface cssMethods {

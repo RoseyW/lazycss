@@ -208,11 +208,6 @@ let style = useStyle({
 ```javascript
 let style = useStyle({
     demo: {
-        hover:{
-            backgroundColor: '#1e9fff'
-        },
-        //maybe use
-        //支持两种模式，单下划线为:(css2)，双下划线为::(css3+)
         _hover:{
         	backgroundColor: '#1e9fff'
     	},
@@ -220,8 +215,6 @@ let style = useStyle({
         _focus:{},
         _before:{},
         _after:{},
-        __hover:{}
-        __before:{}
     }
 })
 ```
@@ -229,6 +222,8 @@ let style = useStyle({
 在**0.1.12**版本中**已被支持**，但并没有被**规范化输入**
 
 在**0.1.13**版本中，响应式刷新已被实现
+
+double underline method has been cancel in **0.1.19**
 
 ### 子样式 [0.1.13]
 

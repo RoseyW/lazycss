@@ -1,15 +1,11 @@
 import cssList from "./cssList";
 import {pseudoRender, render} from "./sytleRender";
+import {createElement, windowObjectInit} from "./styleGlobal";
 
-declare global {
-    interface Window {
-        cssLazy: any,
-        cssUnit: any
-    }
-}
 
 //基础proxy定义
 const setBaseProxy = function(){
+    windowObjectInit();
     window.cssUnit = Object.create({});
     window.cssLazy = new Proxy({}, {
         set: function (target, property, value, receiver) {
@@ -30,6 +26,8 @@ const setBaseProxy = function(){
 //伪元素
 //子元素
 const createElementProxy = function (fatherNode: string,cssList: cssList){
+    createElement(fatherNode, cssList);
+    return;
     //先解析cssList，然后for循环找children和_和__关键字，分别添加Proxy
     let cssListKey = Object.keys(cssList);
     for (let i = 0; i < cssListKey.length; i++) {
@@ -38,7 +36,7 @@ const createElementProxy = function (fatherNode: string,cssList: cssList){
             //遍历children，分别创建
             continue;
         }
-        if(key.indexOf("_") === 0 || key.indexOf("__") === 0){
+        if(key.indexOf("_") === 0){
             //直接创建
             cssList[key]['fatherNode'] = fatherNode + "." + key;
             cssList[key] = new Proxy(cssList[key], {
@@ -55,14 +53,13 @@ const createElementProxy = function (fatherNode: string,cssList: cssList){
         }
     }
     cssList.fatherNode = fatherNode;
-    cssList.autoGroup = {};
     return new Proxy(cssList, {
         set: function (target, property, value, receiver) {
             if (property === "fatherNode") {
                 return false;
             }
             target[property] = value;
-            render(target['fatherNode'], target);
+            render(target['fatherNode'] ?? "", target);
             return true;
         }
     });
@@ -85,11 +82,10 @@ const useStyle = function ({...args}: cssList){
     //初始化
     init();
     let mapArgs = Object.entries(args);
-    console.log(mapArgs);
     for (let i =0; i < mapArgs.length; i++) {
-        window.cssLazy[mapArgs[i][0]] = createElementProxy(mapArgs[i][0],mapArgs[i][1]);
+        createElement(mapArgs[i][0],mapArgs[i][1])
     }
-    return window.cssLazy;
+    return window.cssLazy_Beta;
 }
 
 export {

@@ -1,5 +1,6 @@
 import cssList from "./cssList";
 import {createElementProxy, init} from "./styleBase";
+import {createElement} from "./styleGlobal";
 
 export interface styleLib {
     namespace: string,
@@ -11,7 +12,8 @@ const useLib = function (lib: styleLib){
     let {namespace, cssList} = lib;
     let keys = Object.keys(cssList);
     for (let i = 0; i < keys.length; i++) {
-        window.cssLazy[keys[i]] = createElementProxy(keys[i],cssList[keys[i]]);
+        //需要集成到window中
+        createElement(keys[i],cssList[keys[i]]);
     }
     return true;
 }

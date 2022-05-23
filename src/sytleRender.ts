@@ -27,7 +27,7 @@ const render = function(DomName: string,StyleMap: any){
             continue;
         }
         //伪元素
-        if(itemName.toString().indexOf("__") === 0 || itemName.toString().indexOf("_") === 0){
+        if(itemName.toString().indexOf("_") === 0){
             //进入伪元素渲染队列
             pseudoRender(DomName, itemName.toString(), StyleMap[itemName]);
             continue;
@@ -35,17 +35,6 @@ const render = function(DomName: string,StyleMap: any){
         //子元素
         if(itemName.toString() === "children"){
             childRender(DomName, StyleMap[itemName]);
-            continue;
-        }
-        //media媒体查询元素
-        if(itemName.toString() === "media"){
-            let mediaList = Object.keys(StyleMap[itemName]);
-            console.log(mediaList);
-            for (let j = 0; j < mediaList.length; j++) {
-                let mediaName = mediaList[j];
-                mediaRender(DomName, mediaName, StyleMap[itemName][mediaName]);
-            }
-
             continue;
         }
         //默认渲染队列
@@ -58,15 +47,8 @@ const render = function(DomName: string,StyleMap: any){
 //渲染伪元素CSS
 const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: any){
     let pseudoSymbol,pseudoName;
-    if(pseudoType.indexOf("__") === 0){
-        //双点
-        pseudoSymbol = "::";
-        pseudoName = pseudoType.split("__")[1];
-    } else {
-        pseudoSymbol = ":";
-        pseudoName = pseudoType.split("_")[1];
-    }
-
+    pseudoSymbol = ":";
+    pseudoName = pseudoType.split("_")[1];
     const styleKey = Object.keys(pseudoMap);
     let pseudoList = "." + DomName + pseudoSymbol + pseudoName + "{";
     for(let i=0; i < styleKey.length; i++){
@@ -88,22 +70,6 @@ const strMatchRender = function (cssName: string, cssMethod: Function){
     let split = cssName.split("?");
     //对cssName操作，并进行渲染
     cssMethod("123");
-}
-
-const mediaRender = function (DomName: string,itemName: string, styleList: Object){
-    window.cssLazy[DomName]["autoGroup"][itemName] = styleList;
-    console.log(window.cssLazy[DomName]);
-    let target;
-    window.onresize = function (){
-        if (target) {
-            clearTimeout(target);
-        }
-        target = setTimeout(function() {
-            console.log(document.body.clientWidth);
-            let access = 0;
-            target = null;
-        }, 100);
-    }
 }
 
 //渲染子元素CSS
@@ -194,5 +160,7 @@ const getCompatibleValue = function(lowerName: string, styleValue: any) {
 export {
     render,
     pseudoRender,
-    childRender
+    childRender,
+    humpToLine,
+    getDom,
 };
