@@ -10,7 +10,7 @@ The English document is partly based on Youdao translation, which may have some 
 
 If you have any suggestions or comments please leave them in the comments section below.
 
-### 0.1.19-Beta.1 Update Infomation
+### 0.2.0 Update Infomation
 
 1. Rebuild global variable cssLazy.
 1. support using namespace.
@@ -69,7 +69,7 @@ let style = lazyCss.useStyle({
 	cssName: {
 		cssList
 	}
-})
+}, namespace?: string)
 
 //use reactive
 style.cssName.cssListParam = cssValue;
@@ -84,7 +84,7 @@ let style = useStyle({
     cssName: {
         cssList
     }
-})
+}, namespace?: string)
 
 //use reactive
 style.cssName.cssListParam = cssValue;

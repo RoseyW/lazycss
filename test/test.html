@@ -12,19 +12,13 @@
         hoho
     </div>
 </div>
-<button class="canoeButton"> hallo </button>
-<button class="abc"> abc </button>
 </body>
 <script src="test.js"></script>
 <script>
 
     //使用外置的组件库！
     console.time("ab")
-    lazyCss.useLib(canoeDesign);
-
     lazyCss.setUnit(["width", "marginTop"], "%");
-
-
     //定义css样式
     let style = lazyCss.useStyle({
         test: {
@@ -43,8 +37,6 @@
             }
         }
     }, "rosey");
-
-    console.timeEnd("ab");
 
     style.rosey.test.marginTop = 50;
     console.log(style.rosey.test.marginTop);

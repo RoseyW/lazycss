@@ -60,7 +60,7 @@ let style = lazyCss.useStyle({
 	cssName: {
 		cssList
 	}
-})
+}, namespace?: string)
 
 //响应式
 style.cssName.cssListParam = cssValue;
@@ -75,7 +75,7 @@ let style = useStyle({
     cssName: {
         cssList
     }
-})
+}, namespace?: string)
 
 //响应式
 style.cssName.cssListParam = cssValue;
