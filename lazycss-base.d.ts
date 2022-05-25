@@ -1,5 +1,6 @@
 declare interface cssList {
     fatherNode?: string;
+    namespace?: string;
     width?: number;
     height?: number;
     marginTop?: number;
@@ -37,6 +38,6 @@ export declare const useLib: (lib: styleLib) => boolean;
 
 export declare const useMedia: (config: mediaConfig, styleList: cssList) => void;
 
-export declare const useStyle: ({ ...args }: cssList) => any;
+export declare const useStyle: ({ ...args }: cssList, namespace?: string | undefined, presetStyle?: Object | undefined) => any;
 
 export { }

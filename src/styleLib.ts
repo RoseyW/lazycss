@@ -1,5 +1,5 @@
 import cssList from "./cssList";
-import {createElementProxy, init} from "./styleBase";
+import {init} from "./styleBase";
 import {createElement} from "./styleGlobal";
 
 export interface styleLib {
@@ -13,7 +13,7 @@ const useLib = function (lib: styleLib){
     let keys = Object.keys(cssList);
     for (let i = 0; i < keys.length; i++) {
         //需要集成到window中
-        createElement(keys[i],cssList[keys[i]]);
+        createElement(keys[i],cssList[keys[i]], namespace);
     }
     return true;
 }

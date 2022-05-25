@@ -10,6 +10,11 @@ The English document is partly based on Youdao translation, which may have some 
 
 If you have any suggestions or comments please leave them in the comments section below.
 
+### 0.1.19-Beta.1 Update Infomation
+
+1. Rebuild global variable cssLazy.
+1. support using namespace.
+
 ### Contact
 
 Email: roseywrong@163.com

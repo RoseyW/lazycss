@@ -9,32 +9,14 @@ declare global {
     }
 }
 
-// interface cssLazy {
-//     styleSheet: styleSheet,
-//     mediaSheet: mediaSheet,
-// }
-//
-//
-// interface styleSheet {
-//     nameSpace: nameSpace,
-//     unitSheet: unitSheet,
-// }
-//
-// interface mediaSheet {
-//     [index: string]: string,
-// }
-//
-//
-// interface nameSpace {
-//     unitSheet: Object,
-//     [index: string]: ProxyConstructor(),
-// }
-//
-// interface unitSheet {
-//     [index: string]: string
-// }
-
 const createElement = function (fatherNode: string,cssList: cssList, namespace?: string){
+    //create namespace
+    if(namespace !== undefined){
+        createNameSpace(namespace);
+    } else {
+        namespace = "";
+    }
+
     let cssListKey = Object.keys(cssList);
     for (let i = 0; i < cssListKey.length; i++) {
         let key = cssListKey[i];
@@ -52,22 +34,23 @@ const createElement = function (fatherNode: string,cssList: cssList, namespace?:
                     }
                     target[property] = value;
                     let split = target['fatherNode'].split(".");
-                    pseudoRender(split[0], split[1], target);
+
+                    pseudoRender(split[0], split[1], target,namespace);
                     return true;
                 }
             });
         }
     }
     cssList.fatherNode = fatherNode;
-    render(fatherNode, cssList);
-    window.cssLazy_Beta.__style[namespace ?? "__default"][fatherNode] = new Proxy(cssList, {
+    cssList.namespace = namespace;
+    render(fatherNode, cssList, namespace);
+    window.cssLazy.__style[namespace][fatherNode] = new Proxy(cssList, {
         set(target, p: string | symbol, value: any): boolean {
-            console.log(554);
             if (p === "fatherNode") {
                 return false;
             }
             target[p] = value;
-            render(target['fatherNode'] ?? "", target);
+            render(target['fatherNode'] ?? "", target, target['namespace']);
             return true;
         },
         get(target, p: string | symbol): any {
@@ -79,11 +62,11 @@ const createElement = function (fatherNode: string,cssList: cssList, namespace?:
 const createNameSpace = function (name: string){
     //创建命名级单位表
     let unitSheet = new Proxy({}, {
-        set(target: {}, p: string | symbol, value: any, receiver: any): boolean {
+        set(target: {}, p: string | symbol, value: any): boolean {
             target[p] = value;
             return true;
         },
-        get(target: {}, p: string | symbol, receiver: any): any {
+        get(target: {}, p: string | symbol): any {
             return target[p];
         }
     });
@@ -92,45 +75,45 @@ const createNameSpace = function (name: string){
         unitSheet
     }
 
-    window.cssLazy_Beta.__style[name] = new Proxy({}, {
-        set(target, p, value, receiver) {
+    window.cssLazy.__style[name] = new Proxy({}, {
+        set(target, p, value) {
             target[p] = value;
             return true;
         },
-        get(target, p, receiver) {
+        get(target, p) {
             return target[p];
         }
     })
 }
-
+/**
+ * method 1: use array in under
+ */
 const windowObjectInit = function (){
 
     //默认的命名空间 单独创建
     let ns_default = new Proxy({}, {
-        set(target, p, value, receiver) {
+        set(target, p, value) {
             target[p] = value;
             return true;
         },
-        get(target, p, receiver) {
-            console.log(111);
+        get(target, p) {
             return target[p];
         }
     })
 
     //style
     let __style = new Proxy({__default: ns_default}, {
-        set(target, p, value, receiver) {
+        set(target, p, value) {
             target[p] === undefined || target[p] === null ? target['__default'][p] = value : target[p] = value;
-            console.log(target,p,receiver);
             return true;
         },
-        get(target, p, receiver) {
+        get(target, p) {
             return target[p] === undefined || target[p] === null ? target['__default'][p] : target[p];
         }
     });
 
     //media
-    let media = new Proxy({}, {
+    let __media = new Proxy({}, {
         set(target: {}, p: string | symbol, value: any, receiver: any): boolean {
             return true;
         },
@@ -139,17 +122,16 @@ const windowObjectInit = function (){
     })
 
     //全局变量
-    window.cssLazy_Beta = new Proxy({__style, media}, {
-        set(target, p, value, receiver) {
+    window.cssLazy = new Proxy({__style, __media}, {
+        set(target, p, value) {
             target[p] === undefined || target[p] === null ? target['__style'][p] = value : target[p] = value;
             return true;
         },
-        get(target, p, receiver) {
+        get(target, p) {
             return target[p] === undefined || target[p] === null ? target['__style'][p] : target[p];
         }
     });
 }
-
 export {
     windowObjectInit,
     createElement

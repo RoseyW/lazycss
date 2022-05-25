@@ -3,8 +3,7 @@ import autoCompatible from "./autoCompatible";
 import { readSuffix } from "./cssSuffix";
 //渲染主CSS
 //主函数，跟据key特征分配渲染方式
-const render = function(DomName: string,StyleMap: any){
-
+const render = function(DomName: string,StyleMap: any, namespace ?: string){
     //优先进行模式匹配
     const pattern = /[\[](.*)[\]]/;
     let strMatch = DomName.match(pattern);
@@ -14,22 +13,23 @@ const render = function(DomName: string,StyleMap: any){
         return false;
     }
 
-    const dom = getDom(DomName);
+    const dom = getDom((namespace ?? "") + "." + DomName);
     if(!dom){
         return false;
     }
     const styleKey = Object.keys(StyleMap);
-    let styleList = "." + DomName + "{";
+    let styleList = (namespace ? "." + namespace + "-" : ".") + DomName + "{";
     for(let i=0; i < styleKey.length; i++){
         let itemName = styleKey[i];
         //父节点直接跳过
-        if(["fatherNode", "autoGroup"].includes(itemName.toString())){
+        if(["fatherNode", "autoGroup", "namespace"].includes(itemName.toString())){
             continue;
         }
         //伪元素
+
         if(itemName.toString().indexOf("_") === 0){
             //进入伪元素渲染队列
-            pseudoRender(DomName, itemName.toString(), StyleMap[itemName]);
+            pseudoRender(DomName, itemName.toString(), StyleMap[itemName], namespace);
             continue;
         }
         //子元素
@@ -45,12 +45,11 @@ const render = function(DomName: string,StyleMap: any){
 }
 
 //渲染伪元素CSS
-const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: any){
-    let pseudoSymbol,pseudoName;
-    pseudoSymbol = ":";
+const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: any, namespace?: string){
+    let pseudoName;
     pseudoName = pseudoType.split("_")[1];
     const styleKey = Object.keys(pseudoMap);
-    let pseudoList = "." + DomName + pseudoSymbol + pseudoName + "{";
+    let pseudoList = (namespace ? "." + namespace + "-" : ".") + DomName + ":" + pseudoName + "{";
     for(let i=0; i < styleKey.length; i++){
         if(styleKey[i].toString() === "fatherNode"){
             continue;
@@ -58,7 +57,7 @@ const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: a
         pseudoList += getCssStr(styleKey[i], pseudoMap[styleKey[i]]);
     }
     pseudoList += "}";
-    let dom = getDom(DomName + "." + pseudoType);
+    let dom = getDom((namespace ?? "") + "." + DomName + "." + pseudoType);
     if(!dom){
         return false;
     }
@@ -73,16 +72,16 @@ const strMatchRender = function (cssName: string, cssMethod: Function){
 }
 
 //渲染子元素CSS
-const childRender = function (fatherNode: string, childList: any){
+const childRender = function (fatherNode: string, childList: any, namespace?: string){
     let keys = Object.keys(childList);
     for (let i = 0; i < keys.length; i++) {
         let childName = keys[i];
-        let dom = getDom(fatherNode + "." + childName);
+        let dom = getDom((namespace ?? "") + "." + fatherNode + "." + childName);
         if(!dom){
             return false;
         }
         let childStyle = childList[keys[i]];
-        let childValue = "." + fatherNode + " ." + childName + "{";
+        let childValue = (namespace ? "." + namespace + "-" : ".") + fatherNode + " ." + childName + "{";
         let childStyleKey = Object.keys(childStyle);
         for (let j = 0; j < childStyleKey.length; j++) {
             let key = childStyleKey[j];

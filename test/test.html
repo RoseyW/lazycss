@@ -17,10 +17,13 @@
 </body>
 <script src="test.js"></script>
 <script>
+
     //使用外置的组件库！
+    console.time("ab")
     lazyCss.useLib(canoeDesign);
 
     lazyCss.setUnit(["width", "marginTop"], "%");
+
 
     //定义css样式
     let style = lazyCss.useStyle({
@@ -37,83 +40,15 @@
                     width: 50,
                     backgroundColor: '#66ccff',
                 }
-            },
-            'col-?': (val) => {
-                console.log(val);
             }
         }
-    })
+    }, "rosey");
 
-    console.log(window.cssLazy_Beta);
-    // //
-    // let cssObj = new Proxy({}, {
-    //     set(target, p, value, receiver) {
-    //         if(p !== '__style'){
-    //             target['__style'][p] = value;
-    //         } else {
-    //             target[p] = value;
-    //         }
-    //
-    //     },
-    //     get(target, p, receiver) {
-    //         if(p !== "__style"){
-    //             return target['__style'][p];
-    //         } else {
-    //             return target[p];
-    //         }
-    //     }
-    // });
-    //
-    //
-    //
-    // cssObj.__style = new Proxy({}, {
-    //     set(target, p, value, receiver) {
-    //         if(p !== "default"){
-    //             target['default'][p] = value;
-    //         } else {
-    //             target[p] = value;
-    //         }
-    //     },
-    //     get(target, p, receiver) {
-    //         return target['default'];
-    //     }
-    // });
-    //
-    // cssObj.__style.default = new Proxy({}, {
-    //     set(target, p, value, receiver) {
-    //         target[p] = value;
-    //     },
-    //     get(target, p, receiver) {
-    //         return target[p];
-    //     }
-    // })
-    //
-    // cssObj.__style.demo = new Proxy({}, {
-    //     set(target, p, value, receiver) {
-    //         target[p] = value;
-    //     },
-    //     get(target, p, receiver) {
-    //         return target[p];
-    //     }
-    // })
-    //
-    // cssObj.__style.demo.height = 431;
-    //
-    //
-    // console.log(cssObj.demo.height);
+    console.timeEnd("ab");
 
+    style.rosey.test.marginTop = 50;
+    console.log(style.rosey.test.marginTop);
 
-    // window.onresize = function (){
-    //     let target = this;
-    //     if (target.resizeFlag) {
-    //         clearTimeout(target.resizeFlag);
-    //     }
-    //
-    //     target.resizeFlag = setTimeout(function() {
-    //         console.log(2);
-    //         target.resizeFlag = null;
-    //     }, 100);
-    // }
 
 </script>
 <style>
