@@ -10,10 +10,10 @@ The English document is partly based on Youdao translation, which may have some 
 
 If you have any suggestions or comments please leave them in the comments section below.
 
-### 0.2.0 Update Infomation
+### 0.2.1 Update Infomation
 
-1. Rebuild global variable cssLazy.
-1. support using namespace.
+1. Calculate font size
+1. repair bug: This bug causes reactive data to not work properly
 
 ### Contact
 
@@ -37,7 +37,9 @@ on Node.js:
 npm i lazycss-base
 ```
 
-latest version: 0.1.18
+latest version: 0.2.1
+
+beta version: 0.1.19-beta.1
 
 ### Files List
 
@@ -268,6 +270,8 @@ use array was support in **0.1.17**
 
 ### Child elements [0.1.13]
 
+<div id="0"></div>
+
 inhert style from father element
 
 ```javascript
@@ -282,21 +286,13 @@ let style = useStyle({
 })
 ```
 
-other add child method:
+### Calculate FontSize[0.2.1]
 
-```javascript
-let style = useStyle({
-    demo: {
-        width: 30
-    }
-})
-let testStyle = {
-    demo_child:{
-        position: 'relative'
-    }
-}
-style.addChild(demo, testStyle);
-```
+When you input fontSize style tag, and without unit, lazycss will calculate this number,make it look the same across all platforms.
+
+This feature is a experiment feature, in future this feature will used in all number style sheet.
+
+**this feature maybe produce some error**
 
 ### Future
 
@@ -404,4 +400,3 @@ let style = useStyle({
     }
 })
 ```
-

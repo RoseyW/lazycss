@@ -7,17 +7,24 @@
 </head>
 <body>
 <div class="test">
-    hallo
+    <p>12323</p>
     <div class="child">
         hoho
     </div>
+</div>
+
+
+<div class="calculate">
+    <p style="font-size: 18px"> 你好 </p>
+</div>
+<div>
+    <p id="aab"> 你好 </p>
 </div>
 </body>
 <script src="test.js"></script>
 <script>
 
     //使用外置的组件库！
-    console.time("ab")
     lazyCss.setUnit(["width", "marginTop"], "%");
     //定义css样式
     let style = lazyCss.useStyle({
@@ -26,6 +33,7 @@
             marginTop: 20,
             autoFlex: "center flex-start",
             animationDelay: "2s",
+            fontSize: 24,
             _hover:{
                 backgroundColor: "#244444"
             },
@@ -36,23 +44,29 @@
                 }
             }
         }
-    }, "rosey");
+    });
 
-    style.rosey.test.marginTop = 50;
-    console.log(style.rosey.test.marginTop);
+    style.test.marginTop = 50;
+    console.log(style);
 
+
+    window.onload = function (){
+        let t = document.getElementById("aab");
+        let w = document.body.clientWidth;
+        let h = document.body.clientHeight;
+        let f = 18;
+
+        let math = w / 1250;
+
+        console.log(math);
+
+        f = f * math - 1;
+
+        t.style.fontSize = f + "px";
+    }
 
 </script>
 <style>
-    /*@media screen and (max-width: 300px) {*/
-    /*    body {*/
-    /*        background-color:lightblue;*/
-    /*    }*/
-    /*    .canoeButton:hover{*/
-    /*        background-color: #1e9fff*/
-    /*    }*/
-    /*}*/
-
 
 </style>
 </html>

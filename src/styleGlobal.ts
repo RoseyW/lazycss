@@ -8,15 +8,32 @@ declare global {
         cssLazy_Beta: any
     }
 }
+/**
+ * method 1: use array in under
+ */
+const windowObjectInit = function (){
+    //style
+    let __style = createFirstObject({});
+    //media
+    let __media = createFirstObject({});
+    //全局变量
+    __style.__unit = createUnitSheet();
+
+    window.cssLazy = new Proxy({__style, __media}, {
+        set(target, p, value) {
+            target[p] === undefined || target[p] === null ? target['__style'][p] = value : target[p] = value;
+            return true;
+        },
+        get(target, p) {
+            return target[p] === undefined || target[p] === null ? target['__style'][p] : target[p];
+        }
+    });
+    createNameSpace("__default");
+}
 
 const createElement = function (fatherNode: string,cssList: cssList, namespace?: string){
     //create namespace
-    if(namespace !== undefined){
-        createNameSpace(namespace);
-    } else {
-        namespace = "";
-    }
-
+    namespace !== undefined ? createNameSpace(namespace) : namespace = "";
     let cssListKey = Object.keys(cssList);
     for (let i = 0; i < cssListKey.length; i++) {
         let key = cssListKey[i];
@@ -44,7 +61,7 @@ const createElement = function (fatherNode: string,cssList: cssList, namespace?:
     cssList.fatherNode = fatherNode;
     cssList.namespace = namespace;
     render(fatherNode, cssList, namespace);
-    window.cssLazy.__style[namespace][fatherNode] = new Proxy(cssList, {
+    window.cssLazy.__style[namespace === "" ? "__default" : namespace][fatherNode] = new Proxy(cssList, {
         set(target, p: string | symbol, value: any): boolean {
             if (p === "fatherNode") {
                 return false;
@@ -61,7 +78,22 @@ const createElement = function (fatherNode: string,cssList: cssList, namespace?:
 
 const createNameSpace = function (name: string){
     //创建命名级单位表
-    let unitSheet = new Proxy({}, {
+    let selfObject = {
+        __unit: createUnitSheet()
+    }
+    window.cssLazy.__style[name] = new Proxy(selfObject, {
+        set(target, p, value) {
+            target[p] = value;
+            return true;
+        },
+        get(target, p) {
+            return target[p];
+        }
+    })
+}
+
+const createUnitSheet = function (){
+    return new Proxy({},{
         set(target: {}, p: string | symbol, value: any): boolean {
             target[p] = value;
             return true;
@@ -69,69 +101,21 @@ const createNameSpace = function (name: string){
         get(target: {}, p: string | symbol): any {
             return target[p];
         }
-    });
-
-    let namespace = {
-        unitSheet
-    }
-
-    window.cssLazy.__style[name] = new Proxy({}, {
-        set(target, p, value) {
-            target[p] = value;
-            return true;
-        },
-        get(target, p) {
-            return target[p];
-        }
     })
 }
-/**
- * method 1: use array in under
- */
-const windowObjectInit = function (){
 
-    //默认的命名空间 单独创建
-    let ns_default = new Proxy({}, {
+const createFirstObject = function (obj){
+    return new Proxy(obj, {
         set(target, p, value) {
             target[p] = value;
-            return true;
-        },
-        get(target, p) {
-            return target[p];
-        }
-    })
-
-    //style
-    let __style = new Proxy({__default: ns_default}, {
-        set(target, p, value) {
-            target[p] === undefined || target[p] === null ? target['__default'][p] = value : target[p] = value;
             return true;
         },
         get(target, p) {
             return target[p] === undefined || target[p] === null ? target['__default'][p] : target[p];
         }
-    });
-
-    //media
-    let __media = new Proxy({}, {
-        set(target: {}, p: string | symbol, value: any, receiver: any): boolean {
-            return true;
-        },
-        get(target: {}, p: string | symbol, receiver: any): any {
-        }
     })
-
-    //全局变量
-    window.cssLazy = new Proxy({__style, __media}, {
-        set(target, p, value) {
-            target[p] === undefined || target[p] === null ? target['__style'][p] = value : target[p] = value;
-            return true;
-        },
-        get(target, p) {
-            return target[p] === undefined || target[p] === null ? target['__style'][p] : target[p];
-        }
-    });
 }
+
 export {
     windowObjectInit,
     createElement

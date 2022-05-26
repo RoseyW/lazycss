@@ -60,4 +60,14 @@ const useMedia = function (config: mediaConfig, styleList: cssList) {
     // dom.innerHTML = mediaItem;
 }
 
-export default useMedia;
+const getAutoFontSize = function (fontSize: number) {
+
+    let w = document.body.clientWidth;
+    let al = w / 1250;
+    return fontSize * al - 1;
+}
+
+export {
+    useMedia,
+    getAutoFontSize
+};

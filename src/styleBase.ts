@@ -1,9 +1,11 @@
 import cssList from "./cssList";
 import {createElement, windowObjectInit} from "./styleGlobal";
+import {globalReactive} from "./styleReactive";
 
 //初始化
-const init = function (){
+const globalInit = function (){
     if(document.getElementsByTagName("styles").length === 0){
+        globalReactive();
         windowObjectInit();
         window.cssUnit = Object.create({});
         let styles = document.createElement("styles");
@@ -16,8 +18,8 @@ const init = function (){
 
 //主函数
 const useStyle = function ({...args}: cssList, namespace ?: string, presetStyle ?: Object){
+    globalInit();
     //初始化
-    init();
     let mapArgs = Object.entries(args);
     for (let i =0; i < mapArgs.length; i++) {
         createElement(mapArgs[i][0],mapArgs[i][1], namespace);
@@ -27,5 +29,5 @@ const useStyle = function ({...args}: cssList, namespace ?: string, presetStyle 
 
 export {
     useStyle,
-    init
+    globalInit
 };

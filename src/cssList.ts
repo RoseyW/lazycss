@@ -1,3 +1,5 @@
+import {getAutoFontSize} from "./styleMedia";
+
 interface cssList {
     fatherNode ?: string,
     namespace ?: string,
@@ -28,6 +30,7 @@ export const cssMethod = {
     autoFlex: (value: any) => { return autoFlexMethods(value) },
     animation: (value: any) => {return { animation: value }},
     animationDelay: (value: any) => {return { animationDelay: value }},
+    fontSize: (value: any) => {return {fontSize: getAutoFontSize(value) + "px"}}
 }
 
 const autoFlexMethods = function (value: any){

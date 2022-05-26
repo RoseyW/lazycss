@@ -1,6 +1,6 @@
 import cssList from "./cssList";
-import {init} from "./styleBase";
 import {createElement} from "./styleGlobal";
+import {globalInit} from "./styleBase";
 
 export interface styleLib {
     namespace: string,
@@ -8,7 +8,7 @@ export interface styleLib {
 }
 
 const useLib = function (lib: styleLib){
-    init();
+    globalInit();
     let {namespace, cssList} = lib;
     let keys = Object.keys(cssList);
     for (let i = 0; i < keys.length; i++) {
