@@ -23,11 +23,13 @@ declare interface mediaConfig {
 
 export declare const rgb: (r: number, g: number, b: number) => string;
 
+export declare const setGlobalUnit: (name: string | Array<string>, unit: string) => void;
+
 export declare const setPresetStyle: ({ ...args }: cssList) => string;
 
 export declare const setStyleLib: (namespace: string, { ...args }: cssList) => styleLib;
 
-export declare const setUnit: (name: string | Array<string>, unit: string) => void;
+export declare const setUnit: (name: string | Array<string>, unit: string, namespace?: string) => void;
 
 declare interface styleLib {
     namespace: string;
