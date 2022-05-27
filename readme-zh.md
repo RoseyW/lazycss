@@ -1,5 +1,7 @@
 # LazyCss
 
+[Document](https://roseyw.github.io/lazycss-docs/)
+
 ### 简述
 
 让你使用更简便的方式来编辑样式表。
