@@ -16,7 +16,7 @@ If you have any suggestions or comments please leave them in the comments sectio
 
 ### 0.2.2 Update Infomation
 
-1. reactive lastest implement method. [detail](https://roseyw.github.io/lazycss-docs/essentials/compatibility-explorer.html)
+1. reactive lastest implement method. [detail](https://roseyw.github.io/lazycss-docs/essentials/reactive.html)
 
 ### Contact
 
