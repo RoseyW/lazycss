@@ -4,8 +4,7 @@ import {pseudoRender, render} from "./sytleRender";
 declare global {
     interface Window {
         cssLazy: any,
-        cssUnit: any,
-        cssLazy_Beta: any
+        cssUnit: any
     }
 }
 /**
@@ -16,10 +15,12 @@ const windowObjectInit = function (){
     let __style = createFirstObject({});
     //media
     let __media = createFirstObject({});
+
+    let __watch = [];
     //全局变量
     __style.__unit = createUnitSheet();
 
-    window.cssLazy = new Proxy({__style, __media}, {
+    window.cssLazy = new Proxy({__style, __media, __watch}, {
         set(target, p, value) {
             target[p] === undefined || target[p] === null ? target['__style'][p] = value : target[p] = value;
             return true;
@@ -148,6 +149,7 @@ const createMediaElement = function (DomName: string, config: Object, styleSheet
 
 }
 
+//将一个函数挂载到监听函数中
 
 export {
     windowObjectInit,

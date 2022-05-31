@@ -17,10 +17,9 @@ const useMedia = function (DomName: string, config: mediaConfig, styleList: cssL
 
 }
 
-const refreshMedia = function (width: number, height: number){
-
-}
+const refreshMedia = function (width: number, height: number){}
 
 export {
-    useMedia
+    useMedia,
+    refreshMedia
 };

@@ -26,6 +26,7 @@
     //使用外置的组件库！
     lazyCss.setUnit(["width", "marginTop"], "%");
     //定义css样式
+    console.time("start");
     let style = lazyCss.useStyle({
         test: {
             width: '100%',
@@ -45,13 +46,26 @@
         }
     });
 
+    console.timeEnd("start");
+
     style.test.marginTop = 50;
     console.log(style);
+
+    lazyCss.watchEffect((w, h) => {
+        console.log(w, h);
+        if(w < 770){
+            style.test.fontSize = 880;
+        } else {
+            style.test.fontSize = 24;
+        }
+    })
 
 
     window.onload = function (){
         let t = document.getElementById("aab");
         let w = window.screen.width;
+
+        console.log(window.screen.availWidth);
 
         console.log(w);
 

@@ -3,15 +3,7 @@ import autoCompatible from "./autoCompatible";
 import { readSuffix } from "./cssSuffix";
 //渲染主CSS
 //主函数，跟据key特征分配渲染方式
-const render = function(DomName: string,StyleMap: any, namespace ?: string){
-    //优先进行模式匹配
-    const pattern = /[\[](.*)[\]]/;
-    let strMatch = DomName.match(pattern);
-    if(strMatch !== null){
-        //模式匹配
-        strMatchRender(strMatch[1], StyleMap);
-        return false;
-    }
+const render = async function(DomName: string,StyleMap: any, namespace ?: string){
     const dom = getDom((namespace ?? "") + "." + DomName);
     if(!dom){
         return false;
@@ -25,7 +17,6 @@ const render = function(DomName: string,StyleMap: any, namespace ?: string){
             continue;
         }
         //伪元素
-
         if(itemName.toString().indexOf("_") === 0){
             //进入伪元素渲染队列
             pseudoRender(DomName, itemName.toString(), StyleMap[itemName], namespace);
@@ -44,7 +35,7 @@ const render = function(DomName: string,StyleMap: any, namespace ?: string){
 }
 
 //渲染伪元素CSS
-const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: any, namespace?: string){
+const pseudoRender = async function (DomName: string, pseudoType: string, pseudoMap: any, namespace?: string){
     let pseudoName;
     pseudoName = pseudoType.split("_")[1];
     const styleKey = Object.keys(pseudoMap);
@@ -58,20 +49,19 @@ const pseudoRender = function (DomName: string, pseudoType: string, pseudoMap: a
     pseudoList += "}";
     let dom = getDom((namespace ?? "") + "." + DomName + "." + pseudoType);
     if(!dom){
-        return false;
+        return;
     }
     dom.innerHTML = pseudoList;
-    return pseudoList;
 }
 
-const strMatchRender = function (cssName: string, cssMethod: Function){
+const strMatchRender = async function (cssName: string, cssMethod: Function){
     let split = cssName.split("?");
     //对cssName操作，并进行渲染
     cssMethod("123");
 }
 
 //渲染子元素CSS
-const childRender = function (fatherNode: string, childList: any, namespace?: string){
+const childRender = async function (fatherNode: string, childList: any, namespace?: string){
     let keys = Object.keys(childList);
     for (let i = 0; i < keys.length; i++) {
         let childName = keys[i];
