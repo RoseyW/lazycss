@@ -1,6 +1,8 @@
 # LazyCss
 
-![Github stars](https://img.shields.io/github/stars/roseyw/lazycss.svg)![Github forks](https://img.shields.io/github/forks/roseyw/lazycss.svg)[Document](https://roseyw.github.io/lazycss-docs/)
+![Github stars](https://img.shields.io/github/stars/roseyw/lazycss.svg)![Github forks](https://img.shields.io/github/forks/roseyw/lazycss.svg) 
+
+ [Document](https://roseyw.github.io/lazycss-docs/)
 
 ### Describe
 
@@ -12,10 +14,9 @@ The English document is partly based on Youdao translation, which may have some 
 
 If you have any suggestions or comments please leave them in the comments section below.
 
-### 0.2.1 Update Infomation
+### 0.2.2 Update Infomation
 
-1. Calculate font size
-1. repair bug: This bug causes reactive data to not work properly
+1. reactive lastest implement method. [detail](https://roseyw.github.io/lazycss-docs/essentials/compatibility-explorer.html)
 
 ### Contact
 

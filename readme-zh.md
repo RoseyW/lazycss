@@ -272,6 +272,29 @@ style.demo.width = '22%';
 
 **0.1.17**支持使用数组
 
+### 响应式
+
+通过注册一个监听函数，来实现基于js的自相应功能
+
+```javascript
+import {watchEffect} from "lazycss-base"
+
+let style = useStyle({
+    demo: {
+        width: 330
+    }
+})
+
+watchEffect((width, height) => {
+    if(width > 660){
+        style.demo.width = 440;
+    } else {
+        style.demo.width = 330;
+    }
+    //注意，必须要用else语句来修正demo的width，否则会导致其在width小于660时显示错误
+})
+```
+
 ### Future
 
 #### 预设的样式组
@@ -293,64 +316,6 @@ let style = useStyle({
         preDemo: "传参示例",
     }
 }, presetStyle)
-```
-
-#### 响应式设计
-
-**styleMedia.ts**
-
-在useStyle使用useMedia来实现对该元素的响应式设计
-
-```javascript
-import { useStyle, styleMedia } from "lazycss-base"
-let style = useStyle({
-    demo: {
-        width: 20
-    }
-})
-
-let media_screen_width_max_768 = styleMedia("screen", "max-width", 768, {
-    demo: {
-        width: 30
-    }
-})
-
-style.setMedia(media_screen_width_max_768);
-```
-
-*通过js控制的响应式设计，不依托于css的media媒体查询
-
-```javascript
-setMedia(config: mediaConfig, cssList: cssList)
-```
-
-```javascript
-import { setMedia, mediaConfig } from "lazycss-base"
-
-let media_config = mediaConfig({ 
-    //some config... 
-});
-let media = setMedia(media_config, {
-    //some css...
-});
-```
-
-example:
-
-```javascript
-let style = useStyle({
-    demo: {
-        width: 65
-    }
-})
-let media_config = mediaConfig({ 
-    rule: { maxWidth: 200, maxHeight: 300 }, //when max width greater than 200,and max height greater than 300
-});
-let media = setMedia(media_config, {
-    demo: {
-        width: 55
-    }
-});
 ```
 
 #### 自动后缀
