@@ -1,4 +1,4 @@
-import cssList from "./cssList";
+import { cssList } from "./interface/styleSheet";
 import {createElement} from "./styleGlobal";
 import {globalInit} from "./styleBase";
 

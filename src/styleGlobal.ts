@@ -1,4 +1,4 @@
-import cssList from "./cssList";
+import { cssList } from "./interface/styleSheet";
 import {pseudoRender, render} from "./sytleRender";
 //定义全局对象
 declare global {
@@ -29,6 +29,8 @@ const windowObjectInit = function (){
         }
     });
     createNameSpace("__default");
+    createMediaNamespace("__default");
+
 }
 
 const createElement = function (fatherNode: string,cssList: cssList, namespace?: string){
@@ -78,6 +80,9 @@ const createElement = function (fatherNode: string,cssList: cssList, namespace?:
 
 const createNameSpace = function (name: string){
     //创建命名级单位表
+    if(name in window.cssLazy.__style){
+        return;
+    }
     let selfObject = {
         __unit: createUnitSheet()
     }
@@ -116,7 +121,37 @@ const createFirstObject = function (obj){
     })
 }
 
+const createMediaNamespace = function (name: string){
+    if(name in window.cssLazy.__media){
+        return;
+    }
+
+    window.cssLazy.__media[name] = new Proxy({}, {
+        set(target, p, value) {
+            target[p] = value;
+            return true;
+        },
+        get(target, p) {
+            return target[p];
+        }
+    })
+}
+
+const createMediaElement = function (DomName: string, config: Object, styleSheet: Object, namespace:string = "__default"){
+
+    namespace !== undefined ? createMediaNamespace(namespace) : namespace = "";
+
+    window.cssLazy.__media[namespace][DomName] = {
+        config,
+        styleSheet
+    }
+
+}
+
+
 export {
     windowObjectInit,
-    createElement
+    createElement,
+    createMediaNamespace,
+    createMediaElement
 }

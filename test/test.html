@@ -51,18 +51,34 @@
 
     window.onload = function (){
         let t = document.getElementById("aab");
-        let w = document.body.clientWidth;
-        let h = document.body.clientHeight;
-        let f = 18;
+        let w = window.screen.width;
 
-        let math = w / 1250;
+        console.log(w);
+
+        let f = 16;
+
+        let math = f * 1800 / w;
+
+        if(w < 660){
+            math = math / 1.7;
+        }
 
         console.log(math);
 
-        f = f * math - 1;
-
-        t.style.fontSize = f + "px";
+        t.style.fontSize = math + "px";
     }
+
+    lazyCss.useMedia("test", { maxClientWidth: ['<', 400] },
+        {
+            width: 30
+        }
+    , "rosey");
+
+    lazyCss.useMedia("test666", { maxClientHeight: ['>', 660] }, {
+        width: 445
+    }, "rosey");
+
+    console.log(window.cssLazy);
 
 </script>
 <style>

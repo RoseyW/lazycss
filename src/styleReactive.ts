@@ -20,11 +20,6 @@ const globalReactive = function (){
 
 const reactiveNotice = function (clientWidth: number, clientHeight: number){
     console.log(clientHeight, clientWidth);
-    autoFontSize(clientWidth, clientHeight);
-}
-
-const autoFontSize = function (w,h){
-    let al = (w / h) / 3.28;
 }
 
 export {

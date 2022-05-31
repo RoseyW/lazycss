@@ -1,4 +1,4 @@
-import cssList from "./cssList";
+import { cssList } from "./interface/styleSheet";
 import {createElement, windowObjectInit} from "./styleGlobal";
 import {globalReactive} from "./styleReactive";
 

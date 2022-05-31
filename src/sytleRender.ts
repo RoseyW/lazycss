@@ -1,4 +1,4 @@
-import { cssMethod } from "./cssList";
+import { cssMethod } from "./styleMethod";
 import autoCompatible from "./autoCompatible";
 import { readSuffix } from "./cssSuffix";
 //渲染主CSS
@@ -12,7 +12,6 @@ const render = function(DomName: string,StyleMap: any, namespace ?: string){
         strMatchRender(strMatch[1], StyleMap);
         return false;
     }
-
     const dom = getDom((namespace ?? "") + "." + DomName);
     if(!dom){
         return false;

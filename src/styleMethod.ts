@@ -1,36 +1,11 @@
-import {getAutoFontSize} from "./styleMedia";
-
-interface cssList {
-    fatherNode ?: string,
-    namespace ?: string,
-    width ?: number,
-    height ?: number,
-    marginTop ?: number,
-    marginLeft ?: number,
-    marginRight ?: number,
-    marginBottom ?: number,
-    color ?: string,
-    backgroundColor ?: string,
-    backgroundUrl ?: string,
-}
-
-export interface cssMethods {
-    method: Array<cssMethod>
-}
-
-export interface cssMethod {
-    cssName: string,
-    result: string|number|Function|boolean
-}
-
-export const cssMethod = {
+const cssMethod = {
     width: (value: any) => {return { width: typeof value === "number" ? value + "px" : value }},
     height: (value: any) => {return { height: typeof value === "number" ? value + "px" : value }},
     color: (value: any) => {return { color: value }},
     autoFlex: (value: any) => { return autoFlexMethods(value) },
     animation: (value: any) => {return { animation: value }},
     animationDelay: (value: any) => {return { animationDelay: value }},
-    fontSize: (value: any) => {return {fontSize: getAutoFontSize(value) + "px"}}
+    fontSize: (value: any) => {return {fontSize: autoFontSize(value) + "px"}}
 }
 
 const autoFlexMethods = function (value: any){
@@ -55,4 +30,20 @@ const autoFlexMethods = function (value: any){
     return result;
 }
 
-export default cssList;
+const autoFontSize = function (fontSize: number) {
+    let w = window.screen.width;
+
+    let math = fontSize * 1800 / w;
+
+    if(w < 660){
+        math = math / 1.7;
+    }
+
+    math = Math.round(math);
+
+    return math;
+}
+
+export {
+    cssMethod
+}
