@@ -1,6 +1,6 @@
 import { cssList } from "./interface/styleSheet";
 import {createElement, windowObjectInit} from "./styleGlobal";
-import {globalReactive, watchEffect} from "./styleReactive";
+import {globalReactive} from "./styleReactive";
 import {refreshMedia} from "./styleMedia";
 
 //初始化
@@ -10,7 +10,7 @@ const globalInit = function (){
         globalReactive();
 
         //挂载watch函数
-        appendWatch();
+        //appendWatch();
         window.cssUnit = Object.create({});
         let styles = document.createElement("styles");
         let selfStyle = document.createElement("style");
@@ -20,9 +20,9 @@ const globalInit = function (){
     }
 }
 
-const appendWatch = function (){
-    watchEffect(refreshMedia);
-}
+// const appendWatch = function (){
+//     watchEffect(refreshMedia);
+// }
 
 //主函数
 const useStyle = function ({...args}: cssList, namespace ?: string, presetStyle ?: Object){

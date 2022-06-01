@@ -36,12 +36,12 @@ declare interface styleLib {
     cssList: Object;
 }
 
+export declare const useEffect: (elementName: string, func: Function) => void;
+
 export declare const useLib: (lib: styleLib) => boolean;
 
 export declare const useMedia: (DomName: string, config: mediaConfig, styleList: cssList, namespace?: string) => void;
 
 export declare const useStyle: ({ ...args }: cssList, namespace?: string | undefined, presetStyle?: Object | undefined) => any;
-
-export declare const watchEffect: (func: Function) => void;
 
 export { }

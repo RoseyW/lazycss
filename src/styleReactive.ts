@@ -1,5 +1,5 @@
 //autoload reactive
-
+import {Observe} from "./styleObserve";
 const globalReactive = async function (){
     let timer;
     window.onresize = function (){
@@ -12,26 +12,10 @@ const globalReactive = async function (){
             timer = null;
         }, 100)
         if (callNow) {
-            reactiveNotice(width, height);
+            Observe("__global", "client", "resize", width, height);
         }
     }
 }
-
-const reactiveNotice = async function (clientWidth: number, clientHeight: number){
-    let watchFuncList = window.cssLazy.__watch;
-    for (let i = 0; i < watchFuncList.length; i++) {
-        watchFuncList[i](clientWidth, clientHeight);
-    }
-}
-
-const watchEffect = function (func: Function){
-    let width = document.documentElement.clientWidth;
-    let height = document.documentElement.clientHeight;
-    func(width, height);
-    window.cssLazy.__watch.push(func);
-}
-
 export {
-    globalReactive,
-    watchEffect
+    globalReactive
 }

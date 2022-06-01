@@ -14,9 +14,9 @@ The English document is partly based on Youdao translation, which may have some 
 
 If you have any suggestions or comments please leave them in the comments section below.
 
-### 0.2.2 Update Infomation
+### 0.2.3 Update Infomation
 
-1. reactive lastest implement method. [detail](https://roseyw.github.io/lazycss-docs/essentials/reactive.html)
+1. useEffect implements self-adaption
 
 ### Contact
 

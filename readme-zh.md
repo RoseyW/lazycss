@@ -277,7 +277,7 @@ style.demo.width = '22%';
 通过注册一个监听函数，来实现基于js的自相应功能
 
 ```javascript
-import {watchEffect} from "lazycss-base"
+import { useEffect } from "lazycss-base"
 
 let style = useStyle({
     demo: {
@@ -285,13 +285,15 @@ let style = useStyle({
     }
 })
 
-watchEffect((width, height) => {
-    if(width > 660){
-        style.demo.width = 440;
-    } else {
-        style.demo.width = 330;
-    }
-    //注意，必须要用else语句来修正demo的width，否则会导致其在width小于660时显示错误
+useEffect("demo.width", (oldValue, latestValue) => {
+    // ... your code
+})
+
+//this function can listen all properties
+
+//and you can use global default value to listen client width and height
+useEffect("globalClientResize", (width, height) => {
+    // ... your code
 })
 ```
 

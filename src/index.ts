@@ -4,6 +4,6 @@ import {useMedia} from "./styleMedia"
 import { useLib, setStyleLib } from "./styleLib"
 import { setPresetStyle } from "./stylePreset"
 import { setUnit,setGlobalUnit } from "./styleUnit"
-import { watchEffect } from "./styleReactive"
+import { useEffect } from "./styleObserve";
 
-export { useStyle, rgb, useMedia, useLib, setStyleLib, setPresetStyle, setUnit, setGlobalUnit, watchEffect }
+export { useStyle, rgb, useMedia, useLib, setStyleLib, setPresetStyle, setUnit, setGlobalUnit, useEffect }

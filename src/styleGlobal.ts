@@ -1,5 +1,6 @@
 import { cssList } from "./interface/styleSheet";
 import {pseudoRender, render} from "./sytleRender";
+import {Observe} from "./styleObserve";
 //定义全局对象
 declare global {
     interface Window {
@@ -69,6 +70,9 @@ const createElement = function (fatherNode: string,cssList: cssList, namespace?:
             if (p === "fatherNode") {
                 return false;
             }
+
+            Observe(target['namespace'], fatherNode, p.toString(), target[p], value);
+
             target[p] = value;
             render(target['fatherNode'] ?? "", target, target['namespace']);
             return true;
