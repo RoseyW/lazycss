@@ -49,7 +49,6 @@
     console.timeEnd("start");
 
     style.test.marginTop = 50;
-    console.log(style);
 
     lazyCss.useEffect("test.fontSize", (ele) => {
 
@@ -61,39 +60,11 @@
         console.log(width, height);
     })
 
+    lazyCss.useClass("hello", {
+        width: 50
+    });
+
     style.test.fontSize = 48;
-
-
-    // window.onload = function (){
-    //     let t = document.getElementById("aab");
-    //     let w = window.screen.width;
-    //
-    //     console.log(window.screen.availWidth);
-    //
-    //     console.log(w);
-    //
-    //     let f = 16;
-    //
-    //     let math = f * 1800 / w;
-    //
-    //     if(w < 660){
-    //         math = math / 1.7;
-    //     }
-    //
-    //     console.log(math);
-    //
-    //     t.style.fontSize = math + "px";
-    // }
-
-    lazyCss.useMedia("test", { maxClientWidth: ['<', 400] },
-        {
-            width: 30
-        }
-    , "rosey");
-
-    lazyCss.useMedia("test666", { maxClientHeight: ['>', 660] }, {
-        width: 445
-    }, "rosey");
 
     console.log(window.cssLazy);
 

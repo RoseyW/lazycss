@@ -35,7 +35,15 @@ const useStyle = function ({...args}: cssList, namespace ?: string, presetStyle 
     return window.cssLazy;
 }
 
+/**
+ * useClass: add class when used useStyle
+ * */
+const useClass = function (className: string, {...args}: cssList, namespace?: string){
+    createElement(className,args, namespace);
+}
+
 export {
     useStyle,
-    globalInit
+    globalInit,
+    useClass
 };
