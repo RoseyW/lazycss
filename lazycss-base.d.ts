@@ -36,6 +36,11 @@ declare interface styleLib {
     cssList: Object;
 }
 
+/**
+ * useClass: add class when used useStyle
+ * */
+export declare const useClass: (className: string, { ...args }: cssList, namespace?: string | undefined) => void;
+
 export declare const useEffect: (elementName: string, func: Function) => void;
 
 export declare const useLib: (lib: styleLib) => boolean;
