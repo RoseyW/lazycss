@@ -4,6 +4,7 @@ import { readSuffix } from "./cssSuffix";
 //渲染主CSS
 //主函数，跟据key特征分配渲染方式
 const render = async function(DomName: string,StyleMap: any, namespace ?: string){
+    console.log(DomName, StyleMap)
     const dom = getDom((namespace ?? "") + "." + DomName);
     if(!dom){
         return false;
@@ -100,7 +101,23 @@ const getCssStr = function (styleName: string, styleValue: any) {
         return resultStr;
     } else {
         let autoSuffix = readSuffix(styleName);
-        if(typeof styleValue === "number" && autoSuffix === ""){
+
+        if(styleValue instanceof Array){
+            console.log(1);
+            let value = "";
+            for (let i=0; i < styleValue.length; i++) {
+                const val = styleValue[i];
+                value += val;
+                if(typeof val === "number" && autoSuffix === ""){
+                    value += "px";
+                }
+                if(i != styleValue.length - 1){
+                    value += " ";
+                }
+            }
+
+            styleValue = value;
+        } else if(typeof styleValue === "number" && autoSuffix === ""){
             styleValue = styleValue + "px";
         }
         let autoValue = autoCompatible(styleName);

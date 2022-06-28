@@ -34,6 +34,8 @@
             autoFlex: "center flex-start",
             animationDelay: "2s",
             fontSize: 24,
+            margin: [20, 20, 20],
+            backgroundColor: [lazyCss.rgb(114,223,153), '!important'],
             _hover:{
                 backgroundColor: "#244444"
             },
@@ -45,15 +47,10 @@
             }
         }
     });
-
     console.timeEnd("start");
 
-    style.test.marginTop = 50;
-
     lazyCss.useEffect("test.fontSize", (ele) => {
-
         console.log(ele);
-
     })
 
     lazyCss.useEffect("globalClientResize", (width, height) => {
@@ -64,12 +61,5 @@
         width: 50
     });
 
-    style.test.fontSize = 48;
-
-    console.log(window.cssLazy);
-
 </script>
-<style>
-
-</style>
 </html>

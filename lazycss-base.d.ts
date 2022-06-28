@@ -39,7 +39,7 @@ declare interface styleLib {
 /**
  * useClass: add class when used useStyle
  * */
-export declare const useClass: (className: string, { ...args }: cssList, namespace?: string | undefined) => void;
+export declare const useClass: (className: string, { ...args }: cssList, namespace?: string) => void;
 
 export declare const useEffect: (elementName: string, func: Function) => void;
 
@@ -47,6 +47,6 @@ export declare const useLib: (lib: styleLib) => boolean;
 
 export declare const useMedia: (DomName: string, config: mediaConfig, styleList: cssList, namespace?: string) => void;
 
-export declare const useStyle: ({ ...args }: cssList, namespace?: string | undefined, presetStyle?: Object | undefined) => any;
+export declare const useStyle: ({ ...args }: cssList, namespace?: string, presetStyle?: Object) => any;
 
 export { }
