@@ -1,14 +1,15 @@
 {
   "name": "lazycss-base",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A javaScript powered Css tool",
   "private": false,
   "main": "build/lazyCss.cjs.js",
   "module": "build/lazyCss.es.js",
   "types": "lazycss-base.d.ts",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/index.ts",
+    "start": "nodemon -e ts,tsx --exec ts-node ./src/index.ts",
     "dev": "rollup -w -c rollup.config.ts --environment MODE:dev",
     "build": "rollup -c rollup.config.ts --environment MODE:prod",
     "dts": "api-extractor run --local --verbose",
@@ -33,9 +34,11 @@
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "@microsoft/api-extractor": "^7.23.2",
+    "nodemon": "^2.0.18",
     "rollup": "^2.72.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-typescript2": "^0.31.2",
+    "ts-node": "^10.8.1",
     "tslib": "^2.4.0",
     "typescript": "^4.6.4"
   }

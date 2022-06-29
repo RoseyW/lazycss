@@ -43,6 +43,11 @@
                 child: {
                     width: 50,
                     backgroundColor: '#66ccff',
+                },
+                child2: {
+                    width: 75,
+                    height: 66,
+                    backgroundColor: '#1e9fff'
                 }
             }
         }
@@ -60,6 +65,10 @@
     lazyCss.useClass("hello", {
         width: 50
     });
+
+    style.test.children.child.width = 90;
+
+    console.log(window.cssLazy);
 
 </script>
 </html>

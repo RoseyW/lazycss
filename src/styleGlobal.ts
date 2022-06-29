@@ -1,5 +1,5 @@
 import { cssList } from "./interface/styleSheet";
-import {pseudoRender, render} from "./sytleRender";
+import {pseudoRender, render, oneChildRender} from "./sytleRender";
 import {Observe} from "./styleObserve";
 //定义全局对象
 declare global {
@@ -43,6 +43,23 @@ const createElement = function (fatherNode: string,cssList: cssList, namespace?:
         let key = cssListKey[i];
         if(key === "children"){
             //遍历children，分别创建
+            let childElement = cssList[key];
+            for (const childElementKey in childElement) {
+                console.log(childElementKey);
+                let pushValue = childElement[childElementKey];
+                pushValue['fatherNode'] = fatherNode + "." + "children" + "." + childElementKey;
+                cssList[key][childElementKey] = new Proxy(pushValue, {
+                    set(target: any, p: string | symbol, value: any, receiver: any) {
+                        if (p === "fatherNode") {
+                            return false;
+                        }
+                        target[p] = value;
+                        let split = target['fatherNode'].split(".children.");
+                        oneChildRender(split[0], split[1], target);
+                        return true;
+                    }
+                })
+            }
             continue;
         }
         if(key.indexOf("_") === 0){

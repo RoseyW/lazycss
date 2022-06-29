@@ -20,10 +20,6 @@ const globalInit = function (){
     }
 }
 
-// const appendWatch = function (){
-//     watchEffect(refreshMedia);
-// }
-
 //主函数
 const useStyle = function ({...args}: cssList, namespace ?: string, presetStyle ?: Object){
     globalInit();

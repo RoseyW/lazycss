@@ -16,7 +16,6 @@ const Observe = async function (namespace: string = "__default", elementName: st
 const useEffect = function (elementName: string, func: Function){
     //namespace.cssName.elementName
     let split = elementName.split(".");
-    console.log(split);
     let element = {
         namespace: "",
         cssName: "",

@@ -4,7 +4,6 @@ import { readSuffix } from "./cssSuffix";
 //渲染主CSS
 //主函数，跟据key特征分配渲染方式
 const render = async function(DomName: string,StyleMap: any, namespace ?: string){
-    console.log(DomName, StyleMap)
     const dom = getDom((namespace ?? "") + "." + DomName);
     if(!dom){
         return false;
@@ -82,6 +81,21 @@ const childRender = async function (fatherNode: string, childList: any, namespac
     }
 }
 
+const oneChildRender = async function (fatherNode: string, childName: string, cssList: Object, namespace?: string) {
+    let dom = getDom((namespace ?? "") + "." + fatherNode + "." + childName);
+    if(!dom){
+        return false;
+    }
+    let childValue = (namespace ? "." + namespace + "-" : ".") + fatherNode + " ." + childName + "{";
+    let childStyleKey = Object.keys(cssList);
+    for (let j = 0; j < childStyleKey.length; j++) {
+        let key = childStyleKey[j];
+        childValue += getCssStr(key, cssList[key]);
+    }
+    childValue += "}";
+    dom.innerHTML = childValue;
+}
+
 //到cssMethod里找，如果没有，则执行默认的值
 const getCssStr = function (styleName: string, styleValue: any) {
     let keys = Object.keys(cssMethod);
@@ -101,9 +115,7 @@ const getCssStr = function (styleName: string, styleValue: any) {
         return resultStr;
     } else {
         let autoSuffix = readSuffix(styleName);
-
         if(styleValue instanceof Array){
-            console.log(1);
             let value = "";
             for (let i=0; i < styleValue.length; i++) {
                 const val = styleValue[i];
@@ -115,7 +127,6 @@ const getCssStr = function (styleName: string, styleValue: any) {
                     value += " ";
                 }
             }
-
             styleValue = value;
         } else if(typeof styleValue === "number" && autoSuffix === ""){
             styleValue = styleValue + "px";
@@ -168,4 +179,5 @@ export {
     childRender,
     humpToLine,
     getDom,
+    oneChildRender
 };
