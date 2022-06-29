@@ -27,7 +27,7 @@ export declare const setGlobalUnit: (name: string | Array<string>, unit: string)
 
 export declare const setPresetStyle: ({ ...args }: cssList) => string;
 
-export declare const setStyleLib: (namespace: string, { ...args }: cssList) => styleLib;
+export declare const setStyleLib: (namespace: string, { ...args }: Object) => styleLib;
 
 export declare const setUnit: (name: string | Array<string>, unit: string, namespace?: string) => void;
 
@@ -39,7 +39,7 @@ declare interface styleLib {
 /**
  * useClass: add class when used useStyle
  * */
-export declare const useClass: (className: string, { ...args }: cssList, namespace?: string) => void;
+export declare const useClass: (className: string, { ...args }: Object, namespace?: string) => void;
 
 export declare const useEffect: (elementName: string, func: Function) => void;
 
@@ -47,6 +47,6 @@ export declare const useLib: (lib: styleLib) => boolean;
 
 export declare const useMedia: (DomName: string, config: mediaConfig, styleList: cssList, namespace?: string) => void;
 
-export declare const useStyle: ({ ...args }: cssList, namespace?: string, presetStyle?: Object) => any;
+export declare const useStyle: ({ ...args }: Object, namespace?: string, presetStyle?: Object) => any;
 
 export { }
