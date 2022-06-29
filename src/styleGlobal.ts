@@ -35,7 +35,7 @@ const windowObjectInit = function (){
 
 }
 
-const createElement = function (fatherNode: string,cssList: cssList, namespace?: string){
+const createElement = function (fatherNode: string,cssList: Object, namespace?: string){
     //create namespace
     namespace !== undefined ? createNameSpace(namespace) : namespace = "";
     let cssListKey = Object.keys(cssList);
@@ -79,8 +79,8 @@ const createElement = function (fatherNode: string,cssList: cssList, namespace?:
             });
         }
     }
-    cssList.fatherNode = fatherNode;
-    cssList.namespace = namespace;
+    cssList['fatherNode'] = fatherNode;
+    cssList['namespace'] = namespace;
     render(fatherNode, cssList, namespace);
     window.cssLazy.__style[namespace === "" ? "__default" : namespace][fatherNode] = new Proxy(cssList, {
         set(target, p: string | symbol, value: any): boolean {

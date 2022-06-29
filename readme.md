@@ -24,6 +24,10 @@ If you have any suggestions or comments please leave them in the comments sectio
 
 1. support children reactive
 
+#### 0.2.7
+
+1. fixed TS error
+
 ### Contact
 
 Email: roseywrong@163.com

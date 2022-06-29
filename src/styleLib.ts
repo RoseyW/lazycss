@@ -18,7 +18,7 @@ const useLib = function (lib: styleLib){
     return true;
 }
 
-const setStyleLib = function (namespace: string,{...args}:cssList): styleLib {
+const setStyleLib = function (namespace: string,{...args}:Object): styleLib {
     return {
         namespace: namespace,
         cssList: args

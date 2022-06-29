@@ -21,7 +21,7 @@ const globalInit = function (){
 }
 
 //主函数
-const useStyle = function ({...args}: cssList, namespace ?: string, presetStyle ?: Object){
+const useStyle = function ({...args}: Object, namespace ?: string, presetStyle ?: Object){
     globalInit();
     //初始化
     let mapArgs = Object.entries(args);
@@ -34,7 +34,7 @@ const useStyle = function ({...args}: cssList, namespace ?: string, presetStyle 
 /**
  * useClass: add class when used useStyle
  * */
-const useClass = function (className: string, {...args}: cssList, namespace?: string){
+const useClass = function (className: string, {...args}: Object, namespace?: string){
     createElement(className,args, namespace);
 }
 
