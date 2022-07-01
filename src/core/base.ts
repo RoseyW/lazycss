@@ -1,4 +1,4 @@
-const createSheet = function (this: Window["Lazy"], cssSheet){
+const createSheet = function (this: Window["Lazy"], { ...cssSheet }: Object){
 
     this._sheet = cssSheet;
 

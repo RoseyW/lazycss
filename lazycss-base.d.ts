@@ -1,4 +1,4 @@
-export declare const createSheet: (this: Window["Lazy"]) => any;
+export declare const createSheet: (this: Window["Lazy"], { ...cssSheet }: Object) => any;
 
 declare interface cssList {
     fatherNode?: string;
@@ -25,9 +25,9 @@ declare interface mediaConfig {
     condition: mediaCondition;
 }
 
-export declare const namespace: (this: Window["Lazy"]) => any;
+export declare const namespace: (this: Window["Lazy"], namespace: any) => any;
 
-export declare const render: (this: Window) => Window;
+export declare const render: (this: Window["Lazy"]) => any;
 
 export declare const rgb: (r: number, g: number, b: number) => string;
 
