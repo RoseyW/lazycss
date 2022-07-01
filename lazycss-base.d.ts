@@ -1,3 +1,5 @@
+export declare const createSheet: (this: Window["Lazy"]) => any;
+
 declare interface cssList {
     fatherNode?: string;
     namespace?: string;
@@ -12,6 +14,8 @@ declare interface cssList {
     backgroundUrl?: string;
 }
 
+export declare const get: () => void;
+
 declare interface mediaCondition {
     maxWidth?: number | string;
     maxHeight?: number | string;
@@ -21,9 +25,15 @@ declare interface mediaConfig {
     condition: mediaCondition;
 }
 
+export declare const namespace: (this: Window["Lazy"]) => any;
+
+export declare const render: (this: Window) => Window;
+
 export declare const rgb: (r: number, g: number, b: number) => string;
 
-export declare const setGlobalUnit: (name: string | Array<string>, unit: string) => void;
+export declare const rgba: (r: any, g: any, b: any, a: any) => string;
+
+export declare const set: () => void;
 
 export declare const setPresetStyle: ({ ...args }: cssList) => string;
 

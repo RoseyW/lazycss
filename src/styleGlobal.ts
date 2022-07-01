@@ -1,25 +1,24 @@
-import { cssList } from "./interface/styleSheet";
-import {pseudoRender, render, oneChildRender} from "./sytleRender";
+import {oneChildRender, pseudoRender, render} from "./sytleRender";
 import {Observe} from "./styleObserve";
 //定义全局对象
 declare global {
     interface Window {
         cssLazy: any,
-        cssUnit: any
+        cssUnit: any,
+        Lazy: any
     }
 }
 /**
  * method 1: use array in under
  */
+
 const windowObjectInit = function (){
     //style
-    let __style = createFirstObject({});
+    let __style = createFirstSheet({});
     //media
-    let __media = createFirstObject({});
+    let __media = createFirstSheet({});
 
     let __watch = [];
-    //全局变量
-    __style.__unit = createUnitSheet();
 
     window.cssLazy = new Proxy({__style, __media, __watch}, {
         set(target, p, value) {
@@ -30,9 +29,12 @@ const windowObjectInit = function (){
             return target[p] === undefined || target[p] === null ? target['__style'][p] : target[p];
         }
     });
+
+    window.cssLazy['$add'] = function (className: string, {...args}: Object, namespace?: string){
+        createElement(className,args, namespace);
+    }
     createNameSpace("__default");
     createMediaNamespace("__default");
-
 }
 
 const createElement = function (fatherNode: string,cssList: Object, namespace?: string){
@@ -106,7 +108,8 @@ const createNameSpace = function (name: string){
         return;
     }
     let selfObject = {
-        __unit: createUnitSheet()
+        __unit: createUnitSheet(),
+        __method: createMethodSheet()
     }
     window.cssLazy.__style[name] = new Proxy(selfObject, {
         set(target, p, value) {
@@ -131,7 +134,19 @@ const createUnitSheet = function (){
     })
 }
 
-const createFirstObject = function (obj){
+const createMethodSheet = function (){
+    return new Proxy({},{
+        set(target: {}, p: string | symbol, value: any): boolean {
+            target[p] = value;
+            return true;
+        },
+        get(target: {}, p: string | symbol): any {
+            return target[p];
+        }
+    })
+}
+
+const createFirstSheet = function (obj){
     return new Proxy(obj, {
         set(target, p, value) {
             target[p] = value;
@@ -160,17 +175,12 @@ const createMediaNamespace = function (name: string){
 }
 
 const createMediaElement = function (DomName: string, config: Object, styleSheet: Object, namespace:string = "__default"){
-
     namespace !== undefined ? createMediaNamespace(namespace) : namespace = "";
-
     window.cssLazy.__media[namespace][DomName] = {
         config,
         styleSheet
     }
-
 }
-
-//将一个函数挂载到监听函数中
 
 export {
     windowObjectInit,

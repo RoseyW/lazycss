@@ -23,52 +23,15 @@
 </body>
 <script>
 
-    //使用外置的组件库！
-    lazyCss.setUnit(["width", "marginTop"], "%");
+    //使用外置的组件库
     //定义css样式
-    console.time("start");
-    let style = lazyCss.useStyle({
-        test: {
-            width: '100%',
-            marginTop: 20,
-            autoFlex: "center flex-start",
-            animationDelay: "2s",
-            fontSize: 24,
-            margin: [20, 20, 20],
-            backgroundColor: [lazyCss.rgb(114,223,153), '!important'],
-            _hover:{
-                backgroundColor: "#244444"
-            },
-            children: {
-                child: {
-                    width: 50,
-                    backgroundColor: '#66ccff',
-                },
-                child2: {
-                    width: 75,
-                    height: 66,
-                    backgroundColor: '#1e9fff'
-                }
-            }
+
+    let a = Lazy.createSheet({
+        demo: {
+            width: 30
         }
-    });
-    console.timeEnd("start");
-
-    lazyCss.useEffect("test.fontSize", (ele) => {
-        console.log(ele);
-    })
-
-    lazyCss.useEffect("globalClientResize", (width, height) => {
-        console.log(width, height);
-    })
-
-    lazyCss.useClass("hello", {
-        width: 50
-    });
-
-    style.test.children.child.width = 90;
-
-    console.log(window.cssLazy);
+    }).namespace("test").render();
+    console.log(a);
 
 </script>
 </html>

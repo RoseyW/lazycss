@@ -1,12 +1,14 @@
 const cssMethod = {
-    width: (value: any) => {return { width: typeof value === "number" ? value + "px" : value }},
-    height: (value: any) => {return { height: typeof value === "number" ? value + "px" : value }},
+    width: (value: any) => {return { width: typeof value === "number" ? value : value }},
+    height: (value: any) => {return { height: typeof value === "number" ? value : value }},
     color: (value: any) => {return { color: value }},
     autoFlex: (value: any) => { return autoFlexMethods(value) },
     animation: (value: any) => {return { animation: value }},
     animationDelay: (value: any) => {return { animationDelay: value }},
-    fontSize: (value: any) => {return {fontSize: autoFontSize(value) + "px"}}
+    fontSize: (value: any) => {return {fontSize: autoFontSize(value)}}
 }
+
+const defaultMethodList = {};
 
 const autoFlexMethods = function (value: any){
     let result = {};
@@ -42,6 +44,11 @@ const autoFontSize = function (fontSize: number) {
     math = Math.round(math);
 
     return math;
+}
+
+//暴露给用户进行加载
+const setMethod = function () {
+
 }
 
 export {

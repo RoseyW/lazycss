@@ -20,7 +20,7 @@ export default {
         },
         {
             file: 'build/lazyCss.global.js',
-            name: 'lazyCss',
+            name: 'Lazy',
             format: 'iife',
             sourcemap: !isProd
         },

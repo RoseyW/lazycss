@@ -1,6 +1,6 @@
-import { cssMethod } from "./styleMethod";
+import {cssMethod} from "./styleMethod";
 import autoCompatible from "./autoCompatible";
-import { readSuffix } from "./cssSuffix";
+import {readSuffix} from "./cssSuffix";
 //渲染主CSS
 //主函数，跟据key特征分配渲染方式
 const render = async function(DomName: string,StyleMap: any, namespace ?: string){
@@ -28,7 +28,7 @@ const render = async function(DomName: string,StyleMap: any, namespace ?: string
             continue;
         }
         //默认渲染队列
-        styleList += getCssStr(itemName, StyleMap[itemName]);
+        styleList += getCssStr(itemName, StyleMap[itemName], namespace);
     }
     styleList += "}";
     dom.innerHTML = styleList;
@@ -44,7 +44,7 @@ const pseudoRender = async function (DomName: string, pseudoType: string, pseudo
         if(styleKey[i].toString() === "fatherNode"){
             continue;
         }
-        pseudoList += getCssStr(styleKey[i], pseudoMap[styleKey[i]]);
+        pseudoList += getCssStr(styleKey[i], pseudoMap[styleKey[i]], namespace);
     }
     pseudoList += "}";
     let dom = getDom((namespace ?? "") + "." + DomName + "." + pseudoType);
@@ -74,7 +74,7 @@ const childRender = async function (fatherNode: string, childList: any, namespac
         let childStyleKey = Object.keys(childStyle);
         for (let j = 0; j < childStyleKey.length; j++) {
             let key = childStyleKey[j];
-            childValue += getCssStr(key, childStyle[key]);
+            childValue += getCssStr(key, childStyle[key], namespace);
         }
         childValue += "}";
         dom.innerHTML = childValue;
@@ -90,14 +90,22 @@ const oneChildRender = async function (fatherNode: string, childName: string, cs
     let childStyleKey = Object.keys(cssList);
     for (let j = 0; j < childStyleKey.length; j++) {
         let key = childStyleKey[j];
-        childValue += getCssStr(key, cssList[key]);
+        childValue += getCssStr(key, cssList[key], namespace);
     }
     childValue += "}";
     dom.innerHTML = childValue;
 }
 
 //到cssMethod里找，如果没有，则执行默认的值
-const getCssStr = function (styleName: string, styleValue: any) {
+//cssMethod 仅对数值做处理，不对单位做处理，单位处理将会放在全局处理
+//需要引入的有 readSuffix autoCompatible cssMethodDefault
+
+const getCssStr = function (styleName: string, styleValue: any, styleNamespace: string = "__default") {
+    if(styleName === "fatherNode"){
+        return false;
+    }
+
+    let autoSuffix = getUnit(styleName, styleNamespace);
     let keys = Object.keys(cssMethod);
     if(keys.includes(styleName)){
         let value = cssMethod[styleName](styleValue);
@@ -114,7 +122,8 @@ const getCssStr = function (styleName: string, styleValue: any) {
         }
         return resultStr;
     } else {
-        let autoSuffix = readSuffix(styleName);
+        //默认的数值处理
+        console.log(autoSuffix);
         if(styleValue instanceof Array){
             let value = "";
             for (let i=0; i < styleValue.length; i++) {
@@ -128,17 +137,31 @@ const getCssStr = function (styleName: string, styleValue: any) {
                 }
             }
             styleValue = value;
-        } else if(typeof styleValue === "number" && autoSuffix === ""){
-            styleValue = styleValue + "px";
         }
-        let autoValue = autoCompatible(styleName);
-        let lowerName = humpToLine(styleName);
-        let result = lowerName + ":" + styleValue + autoSuffix + ";";
-        if(autoValue){
-            getCompatibleValue(lowerName, styleValue);
-        }
-        return result;
     }
+
+    if(typeof styleValue === "number" && autoSuffix === ""){
+        styleValue = styleValue + "px";
+    }
+
+    let autoValue = autoCompatible(styleName);
+    let lowerName = humpToLine(styleName);
+
+    if(autoValue){
+        getCompatibleValue(lowerName, styleValue);
+    }
+
+    return lowerName + ":" + styleValue + autoSuffix + ";";
+}
+
+const getUnit = function (cssName: string, namespace: string = "__default"){
+
+    if(namespace === ""){
+        namespace = "__default";
+    }
+
+    console.log("getUnit",window.cssLazy.__style[namespace], namespace);
+    return window.cssLazy?.__style[namespace]?.__unit[cssName] ?? "px";
 }
 
 const getDom = function (tagName: string){
