@@ -6,3 +6,4 @@ lazycss-base.d.ts
 /readme.assets/
 ./nginx.htaccess
 ./.htaccess
+/test/
