@@ -2,7 +2,6 @@
 /build
 /.idea
 lazycss-base.d.ts
-/test
 /readme.assets/
 ./nginx.htaccess
 ./.htaccess
