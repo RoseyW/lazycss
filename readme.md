@@ -28,6 +28,15 @@ If you have any suggestions or comments please leave them in the comments sectio
 
 1. fixed TS error
 
+#### 0.3.0-beta.3
+
+1. LazyCss initialization method is updated to createSheet().render().
+2. child element can be reactive to edit.
+3. reactive method is updated to set() and get().
+4. code save method updated.
+
+Warning: in 0.3.0-beta.3, useStyle and createSheet can be used, but useStyle created sheet and createSheet created sheet can not be connected.
+
 ### Contact
 
 Email: roseywrong@163.com
