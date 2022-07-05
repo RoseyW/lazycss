@@ -1,13 +1,14 @@
 import {  namespace } from "./namespace";
 import { render } from "./render";
-import {windowObjectInit} from "../styleGlobal";
+import {init} from "./init";
+import { use } from "./use";
 
 const createSheet = function (cssSheet: Object){
-    windowObjectInit();
-
+    init();
+    window.Lazy._sheet = cssSheet;
     return {
-        namespace,
-        render
+        render,
+        use
     };
 }
 

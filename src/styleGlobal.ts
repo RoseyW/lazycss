@@ -4,8 +4,7 @@ import {Observe} from "./styleObserve";
 declare global {
     interface Window {
         cssLazy: any,
-        cssUnit: any,
-        Lazy: any
+        cssUnit: any
     }
 }
 /**

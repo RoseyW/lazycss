@@ -1,12 +1,7 @@
-import { render } from "./render";
-
-const namespace = function (namespace){
-
-    console.log(window.cssLazy);
-
-    return {
-        render
-    };
+const namespace = function (namespace: string){
+    return function (){
+        window.Lazy._namespace = namespace;
+    }
 }
 
 export {

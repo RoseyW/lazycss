@@ -6,9 +6,10 @@ import { setUnit } from "./styleUnit"
 import { useEffect } from "./styleObserve"
 import { render } from "./core/render"
 import { get, set } from "./core/reactive"
-import { createSheet } from "./core/createSheet";
+import { createSheet } from "./core/createSheet"
+import { namespace } from "./core/namespace";
 
 import rgb from "./auxiliary/rgb"
 import rgba from "./auxiliary/rgba"
 
-export { useStyle, useMedia, useLib, setStyleLib, setPresetStyle, setUnit, useEffect, useClass, rgba, rgb, render, get, set, createSheet }
+export { useStyle, useMedia, useLib, setStyleLib, setPresetStyle, setUnit, useEffect, useClass, rgba, rgb, render, get, set, createSheet, namespace }

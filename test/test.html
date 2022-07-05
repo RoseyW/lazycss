@@ -26,11 +26,11 @@
     //使用外置的组件库
     //定义css样式
 
-    let a = Lazy.createSheet({
-        demo: {
+    let a = Lazy.useStyle({
+        test: {
             width: 30
         }
-    }).namespace("test").render();
+    })
     console.log(a);
 
 </script>
