@@ -1,8 +1,13 @@
 export declare const createSheet: (cssSheet: Object) => {
-    namespace: (namespace: any) => {
-        render: () => void;
+    render: ({ ...config }: {
+        [x: string]: any;
+    }) => void;
+    use: (type: any) => {
+        use: any;
+        render: ({ ...config }: {
+            [x: string]: any;
+        }) => void;
     };
-    render: () => void;
 };
 
 declare interface cssList {
@@ -19,7 +24,7 @@ declare interface cssList {
     backgroundUrl?: string;
 }
 
-export declare const get: () => void;
+export declare const get: (path: string) => any;
 
 declare interface mediaCondition {
     maxWidth?: number | string;
@@ -30,13 +35,17 @@ declare interface mediaConfig {
     condition: mediaCondition;
 }
 
-export declare const render: () => void;
+export declare const namespace: (namespace: string) => () => void;
+
+export declare const render: ({ ...config }: {
+    [x: string]: any;
+}) => void;
 
 export declare const rgb: (r: number, g: number, b: number) => string;
 
 export declare const rgba: (r: any, g: any, b: any, a: any) => string;
 
-export declare const set: () => void;
+export declare const set: (path: string, value: any) => void;
 
 export declare const setPresetStyle: ({ ...args }: cssList) => string;
 

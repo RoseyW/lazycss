@@ -3,9 +3,7 @@ import {create} from "./create";
 const render = function ({ ...config }){
     //config 配置
     let namespace = config?.namespace ?? "_default";
-
     let c = create.namespace(namespace);
-
     let units = config?.unit ?? {};
     if(units !== {}){
         let unitKey = Object.keys(units);

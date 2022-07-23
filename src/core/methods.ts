@@ -8,28 +8,32 @@ const Methods = {
     fontSize: (value: any) => {return {fontSize: autoFontSize(value)}}
 }
 
+const getSystemMethods = function (name: string, value: any){
+    let userMethod = Methods;
+    let methodKey = Object.keys(userMethod);
+    let includes = methodKey.includes(name);
+    if(includes){
+        return userMethod[name](value);
+    }
+
+    return false;
+}
+
 const getMethods = function (name: string, value: any, namespace: string = "_default"){
     let userMethod;
+    let globalMethod = window.Lazy._global._default._method;
+    userMethod = { ...globalMethod };
     if(namespace !== "_default"){
-        let globalMethod = window.Lazy._global._default._method;
         let namespaceMethod = window.Lazy._global[namespace]._method;
         userMethod = { ...globalMethod,...namespaceMethod };
     }
-
-    console.log(userMethod);
 
     let methodKey = Object.keys(userMethod);
     let includes = methodKey.includes(name);
     if(includes){
         return userMethod[name](value);
     }
-    let userMethodKey = Object.keys(Methods);
-    let inc = userMethodKey.includes(name);
-    if(inc){
-        return Methods[name](value);
-    }
-
-    return "";
+    return false;
 }
 
 
@@ -66,5 +70,6 @@ const autoFontSize = function (fontSize: number) {
 }
 
 export {
+    getSystemMethods,
     getMethods
 }

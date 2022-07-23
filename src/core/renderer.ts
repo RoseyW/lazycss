@@ -1,6 +1,7 @@
 import {humpToLine} from "./humpToLine";
 import {getCompatible, autoCompatible} from "./compatible";
-import {getMethods} from "./methods";
+import {getMethods, getSystemMethods} from "./methods";
+import {getSystemUnits, getUnits} from "./units";
 
 const Renderer = function (fatherNode: string, cssList: Object, namespace: string = "_default"){
     main();
@@ -76,13 +77,11 @@ const Renderer = function (fatherNode: string, cssList: Object, namespace: strin
     }
 
     function createCSS(cssName, cssValue){
-        //获取method
-        let methodResult = getMethods(cssName, cssValue, namespace);
         let lowerName = humpToLine(cssName);
         let result = "";
-        if(methodResult){
-            console.log(methodResult);
-
+        //用户方法
+        let methodResult = getMethods(cssName, cssValue, namespace);
+        if(methodResult !== false){
             //循环输出
             if(methodResult instanceof Object){
                 let keys = Object.keys(methodResult);
@@ -98,7 +97,7 @@ const Renderer = function (fatherNode: string, cssList: Object, namespace: strin
             }
 
             if(methodResult instanceof Array){
-                let value;
+                let value = "";
                 for (let i = 0; i < methodResult.length; i++) {
                     value += methodResult[i] + " ";
                 }
@@ -117,37 +116,68 @@ const Renderer = function (fatherNode: string, cssList: Object, namespace: strin
             }
             return result;
         }
-
-        //当method不起作用时，进行默认的css操作
-        //默认的数值处理
-
-        //获取unit
-
-        if(cssValue instanceof Array){
-            let value = "";
-            for (let i=0; i < cssValue.length; i++) {
-                const val = cssValue[i];
-                value += val;
-                if(typeof val === "number"){
-                    value += "px";
+        //用户unit
+        let unitResult = getUnits(cssName, cssValue, namespace);
+        if(unitResult !== false){
+            if(cssValue instanceof Array){
+                let value = "";
+                for (let i=0; i < cssValue.length; i++) {
+                    const val = cssValue[i];
+                    value += val + unitResult;
+                    if(i != cssValue.length - 1){
+                        value += " ";
+                    }
                 }
-                if(i != cssValue.length - 1){
-                    value += " ";
-                }
+                cssValue = value;
+            } else {
+                cssValue = cssValue + unitResult;
             }
-            cssValue = value;
+
+            return lowerName + ":" + cssValue + ";";
         }
+        //系统方法
+        let sysMethodResult = getSystemMethods(cssName, cssValue);
+        if(sysMethodResult !== false){
+            //循环输出
+            if(sysMethodResult instanceof Object){
+                let keys = Object.keys(sysMethodResult);
+                for (let i = 0; i < keys.length; i++) {
+                    let lowerName = humpToLine(keys[i]);
+                    result += lowerName + ":" + sysMethodResult[keys[i]] + ";";
+                    let autoValue = autoCompatible(keys[i]); //返回需要适配的表
+                    if(autoValue){
+                        result += getCompatible(lowerName, sysMethodResult[keys[i]]);
+                    }
+                }
+                return result;
+            }
 
-        if(typeof cssValue === "number"){
-            cssValue = cssValue + "px";
+            if(sysMethodResult instanceof Array){
+                let value = "";
+                for (let i = 0; i < sysMethodResult.length; i++) {
+                    value += sysMethodResult[i] + " ";
+                }
+                result += lowerName + ":" + value + ";";
+                let autoValue = autoCompatible(cssName); //返回需要适配的表
+                if(autoValue){
+                    result += getCompatible(lowerName, value);
+                }
+                return result;
+            }
+
+            result += lowerName + ":" + sysMethodResult + ";";
+            let autoValue = autoCompatible(cssName); //返回需要适配的表
+            if(autoValue){
+                result += getCompatible(lowerName, cssValue);
+            }
+            return result;
         }
-
-        let autoValue = autoCompatible(cssName);
-
-        if(autoValue){
-            getCompatible(lowerName, cssValue);
+        //系统unit
+        let sysUnitResult = getSystemUnits(cssName);
+        if(sysUnitResult !== false){
+            return  lowerName + ":" + cssValue + sysUnitResult + ";";
         }
-
+        //直接输出
         return lowerName + ":" + cssValue + ";";
     }
 

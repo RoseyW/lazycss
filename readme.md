@@ -37,6 +37,11 @@ If you have any suggestions or comments please leave them in the comments sectio
 
 Warning: in 0.3.0-beta.3, useStyle and createSheet can be used, but useStyle created sheet and createSheet created sheet can not be connected.
 
+#### 0.3.0
+1. Update all methods(You can read /test/module.js to view all update methods)
+
+Warning: When you're not using node, you need add "Lazy" prefix to any methods
+
 ### Contact
 
 Email: roseywrong@163.com
